@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jejak Finansial Santri — Kartu Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F6EFDD;
+    --paper:#FFFDF6;
+    --ink:#1C3626;
+    --ink-soft:#3C5A47;
+    --green-900:#0D2D1F;
+    --green-800:#123C29;
+    --green-700:#1B5238;
+    --green-600:#227048;
+    --green-500:#2E8757;
+    --gold-600:#A9821F;
+    --gold-500:#C79A2B;
+    --gold-300:#E7C766;
+    --gold-100:#F6E7B8;
+    --maju:#2E7D4F;
+    --maju-bg:#E4F3E9;
+    --mundur:#AC4128;
+    --mundur-bg:#FBE7E0;
+    --rose:#D9738B;
+    --shadow: 0 18px 40px -18px rgba(13,45,31,0.45);
+    --radius: 22px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 12% 8%, rgba(199,154,43,0.14), transparent 40%),
+      radial-gradient(circle at 88% 92%, rgba(34,112,72,0.16), transparent 45%),
+      var(--cream);
+    background-attachment:fixed;
+    display:flex;
+    justify-content:center;
+    padding:28px 16px 60px;
+  }
+  .app{
+    width:100%;
+    max-width:640px;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;letter-spacing:-0.01em;margin:0;}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:22px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand-mark{
+    width:44px;height:44px;border-radius:50%;
+    background:conic-gradient(from 220deg, var(--green-800), var(--green-500), var(--gold-500), var(--green-800));
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 14px -4px rgba(13,45,31,0.5);
+    font-size:19px;
+  }
+  .brand-text .eyebrow{
+    text-transform:uppercase;
+    font-size:11px;
+    letter-spacing:0.14em;
+    color:var(--gold-600);
+    font-weight:700;
+  }
+  .brand-text h1{font-size:20px;color:var(--green-900);}
+  .back-btn{
+    border:none;
+    background:var(--paper);
+    color:var(--green-800);
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    padding:9px 16px;
+    border-radius:999px;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    display:flex;align-items:center;gap:6px;
+    transition:transform .15s ease;
+  }
+  .back-btn:hover{transform:translateY(-1px);}
+  .back-btn:active{transform:translateY(0);}
+
+  /* ---------- Generic panel ---------- */
+  .panel{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:26px 24px;
+    position:relative;
+    overflow:hidden;
+  }
+  .panel::before{
+    content:"";
+    position:absolute;top:0;left:0;right:0;height:6px;
+    background:repeating-linear-gradient(90deg, var(--gold-500) 0 14px, var(--green-700) 14px 28px);
+    opacity:.9;
+  }
+
+  /* ---------- Home screen ---------- */
+  .hero{
+    text-align:center;
+    padding:8px 6px 26px;
+  }
+  .hero .kicker{
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--gold-600);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .hero h2{
+    font-size:30px;
+    color:var(--green-900);
+    line-height:1.15;
+    margin-bottom:10px;
+  }
+  .hero p{
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+    max-width:440px;
+    margin:0 auto;
+  }
+  .choice-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:22px;
+  }
+  @media (max-width:520px){ .choice-grid{grid-template-columns:1fr;} }
+
+  .choice-card{
+    cursor:pointer;
+    border-radius:18px;
+    padding:22px 18px;
+    text-align:left;
+    border:1px solid rgba(13,45,31,0.06);
+    position:relative;
+    overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease;
+    color:var(--paper);
+  }
+  .choice-card:hover{transform:translateY(-3px) rotate(-0.3deg);}
+  .choice-card.literasi{
+    background:linear-gradient(155deg, var(--green-700), var(--green-900));
+  }
+  .choice-card.aksi{
+    background:linear-gradient(155deg, var(--gold-500), #8C6A18);
+  }
+  .choice-card .cc-icon{font-size:30px;display:block;margin-bottom:14px;}
+  .choice-card h3{font-size:19px;color:var(--paper);margin-bottom:6px;}
+  .choice-card p{font-size:12.5px;line-height:1.55;color:rgba(255,255,255,0.86);margin:0;}
+  .choice-card .cc-count{
+    display:inline-block;margin-top:12px;
+    font-size:11px;font-weight:700;letter-spacing:.05em;
+    background:rgba(255,255,255,0.18);
+    padding:4px 10px;border-radius:999px;
+  }
+
+  /* ---------- Category grid ---------- */
+  .cat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:18px;
+  }
+  @media (max-width:420px){ .cat-grid{grid-template-columns:1fr;} }
+  .cat-card{
+    cursor:pointer;
+    background:var(--paper);
+    border:1.5px solid rgba(13,45,31,0.08);
+    border-radius:16px;
+    padding:16px 14px;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .cat-card:hover{transform:translateY(-2px); border-color:var(--gold-500);}
+  .cat-icon{font-size:22px;line-height:1;}
+  .cat-name{font-weight:700;font-size:14px;color:var(--green-900);margin-bottom:2px;}
+  .cat-meta{font-size:11.5px;color:var(--ink-soft);}
+  .cat-tag{
+    display:inline-block;margin-top:6px;
+    font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    padding:2px 8px;border-radius:999px;
+  }
+  .cat-tag.ranking{background:var(--maju-bg);color:var(--maju);}
+  .cat-tag.dice{background:var(--gold-100);color:var(--gold-600);}
+
+  /* ---------- Play screen ---------- */
+  .mode-title{
+    display:flex;align-items:center;gap:10px;margin-bottom:6px;
+  }
+  .mode-title .mi{font-size:22px;}
+  .mode-title h2{font-size:19px;color:var(--green-900);}
+  .mode-sub{font-size:12.5px;color:var(--gold-600);font-weight:600;margin-bottom:18px;text-transform:uppercase;letter-spacing:.06em;}
+
+  .card-stage{
+    perspective:1200px;
+    margin-bottom:18px;
+  }
+  .card-face{
+    background:linear-gradient(180deg, #FFFEFA, #FBF4E1);
+    border-radius:18px;
+    border:1.5px dashed var(--gold-500);
+    padding:22px 20px;
+    position:relative;
+    animation:dealIn .35s ease;
+  }
+  @keyframes dealIn{
+    from{opacity:0; transform:translateY(10px) scale(.98);}
+    to{opacity:1; transform:translateY(0) scale(1);}
+  }
+  .card-face .difficulty-badge{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:11px;font-weight:700;
+    padding:4px 10px;border-radius:999px;
+    margin-bottom:12px;
+  }
+  .diff-mudah{background:var(--maju-bg); color:var(--maju);}
+  .diff-sedang{background:var(--gold-100); color:var(--gold-600);}
+  .diff-sulit{background:var(--mundur-bg); color:var(--mundur);}
+  .card-id{
+    position:absolute; top:16px; right:18px;
+    font-family:'Fraunces',serif; font-weight:600;
+    font-size:12px; color:var(--gold-600);
+    opacity:.75;
+  }
+  .card-question{
+    font-size:16.5px;
+    line-height:1.55;
+    color:var(--ink);
+    margin-bottom:16px;
+    font-weight:500;
+  }
+  .options{
+    display:flex; flex-direction:column; gap:9px;
+  }
+  .opt-btn{
+    text-align:left;
+    border:1.5px solid rgba(13,45,31,0.12);
+    background:var(--paper);
+    border-radius:12px;
+    padding:11px 14px;
+    font-size:13.5px;
+    color:var(--ink);
+    cursor:pointer;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+    font-family:'Inter',sans-serif;
+  }
+  .opt-btn:hover{border-color:var(--gold-500); transform:translateX(2px);}
+  .opt-letter{
+    flex:0 0 auto;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--green-800); color:#fff;
+    font-size:11px; font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .opt-btn.selected{border-color:var(--green-700); background:var(--maju-bg);}
+  .opt-btn.selected .opt-letter{background:var(--green-700);}
+  .opt-btn .opt-result{
+    margin-left:auto; font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap;
+  }
+  .opt-btn.result-maju .opt-result{background:var(--maju-bg); color:var(--maju);}
+  .opt-btn.result-mundur .opt-result{background:var(--mundur-bg); color:var(--mundur);}
+  .opt-btn.correct-answer{border-color:var(--maju); background:var(--maju-bg);}
+  .opt-btn.wrong-selected{border-color:var(--mundur); background:var(--mundur-bg);}
+
+  .situasi-only{
+    font-size:15.5px;line-height:1.65;color:var(--ink);
+  }
+  .pelajaran-box{
+    margin-top:14px;
+    background:var(--gold-100);
+    border-left:4px solid var(--gold-500);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:12.5px;
+    color:#5B4A11;
+    line-height:1.55;
+  }
+  .pelajaran-box b{color:var(--gold-600);}
+
+  /* dice */
+  .dice-row{
+    display:flex; align-items:center; gap:14px; margin-top:6px;
+  }
+  .die{
+    width:56px;height:56px;border-radius:14px;
+    background:linear-gradient(155deg,#fff,#F1E6C8);
+    border:1.5px solid var(--gold-500);
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px; font-weight:800; color:var(--green-900);
+    font-family:'Fraunces',serif;
+    box-shadow:0 6px 14px -6px rgba(13,45,31,0.35);
+    transition:transform .4s cubic-bezier(.36,1.7,.5,1);
+  }
+  .die.rolling{animation:rollSpin .5s ease;}
+  @keyframes rollSpin{
+    0%{transform:rotate(0deg) scale(1);}
+    50%{transform:rotate(200deg) scale(1.1);}
+    100%{transform:rotate(360deg) scale(1);}
+  }
+  .dice-result-text{font-size:13.5px; color:var(--ink-soft);}
+  .dice-result-text b{color:var(--green-900);}
+  .dice-outcome-pill{
+    display:inline-block; margin-top:4px;
+    font-size:12px; font-weight:700; padding:4px 10px; border-radius:999px;
+  }
+
+  /* buttons row */
+  .btn-row{
+    display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;
+  }
+  .btn{
+    border:none; cursor:pointer;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:13px;
+    padding:11px 18px; border-radius:999px;
+    display:flex; align-items:center; gap:7px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn:active{transform:translateY(0);}
+  .btn-primary{background:var(--green-800); color:#fff; box-shadow:0 10px 20px -10px rgba(18,60,41,0.6);}
+  .btn-gold{background:var(--gold-500); color:#3A2C05; box-shadow:0 10px 20px -10px rgba(199,154,43,0.6);}
+  .btn-ghost{background:transparent; color:var(--green-800); border:1.5px solid rgba(13,45,31,0.18);}
+  .btn:disabled{opacity:.45; cursor:not-allowed; transform:none;}
+
+  /* answer key panel */
+  .answer-box{
+    margin-top:16px;
+    background:var(--green-900);
+    color:var(--gold-100);
+    border-radius:16px;
+    padding:16px 16px;
+    animation:dealIn .3s ease;
+  }
+  .answer-box .ab-title{
+    font-size:11px; text-transform:uppercase; letter-spacing:.1em; font-weight:700;
+    color:var(--gold-300); margin-bottom:10px;
+  }
+  .rank-row{
+    display:flex; align-items:center; gap:10px;
+    padding:7px 0;
+    border-bottom:1px solid rgba(231,199,102,0.15);
+    font-size:13px;
+  }
+  .rank-row:last-child{border-bottom:none;}
+  .rank-pos{
+    flex:0 0 auto; width:20px; text-align:center; font-weight:800; color:var(--gold-300); font-family:'Fraunces',serif;
+  }
+  .rank-letter{
+    flex:0 0 auto; width:22px;height:22px;border-radius:50%;
+    background:rgba(255,255,255,0.12); color:#fff;
+    font-size:11px; font-weight:700; display:flex;align-items:center;justify-content:center;
+  }
+  .rank-text{flex:1; line-height:1.4; color:#EFE6C8;}
+  .rank-step{
+    flex:0 0 auto; font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px;
+  }
+  .rank-step.maju{background:rgba(46,125,79,0.35); color:#B7E8C9;}
+  .rank-step.mundur{background:rgba(172,65,40,0.35); color:#F3C2B4;}
+
+  /* dice table */
+  .dice-table{
+    width:100%; border-collapse:collapse; margin-top:6px; font-size:12.5px;
+  }
+  .dice-table th, .dice-table td{
+    text-align:left; padding:8px 8px; border-bottom:1px solid rgba(13,45,31,0.08);
+  }
+  .dice-table th{color:var(--gold-600); font-size:11px; text-transform:uppercase; letter-spacing:.04em;}
+  .dice-table td.step-cell{font-weight:700;}
+  .dice-table td.step-cell.maju{color:var(--maju);}
+  .dice-table td.step-cell.mundur{color:var(--mundur);}
+  .table-note{
+    font-size:11px; color:var(--ink-soft); margin-top:8px; line-height:1.5; font-style:italic;
+  }
+
+  .progress-strip{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:16px; font-size:11.5px; color:var(--ink-soft);
+  }
+  .footer-note{
+    text-align:center; margin-top:26px; font-size:11px; color:var(--ink-soft); opacity:.75; line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+
+<script>
+const LITERASI_DATA = [{"id": 1, "difficulty": "mudah", "steps": 1, "question": "Anda menerima uang saku bulanan lebih awal dari orang tua. Tindakan yang paling bijak sesuai prinsip pengelolaan keuangan adalah....", "options": {"A": "Menyimpan seluruh uang di bawah kasur tanpa dicatat.", "B": "Menghabiskan uang untuk membeli barang yang sedang tren.", "C": "Menggunakan setengah uang untuk mentraktir teman.", "D": "Menabung sebagian untuk dana darurat dan membagi sisanya sesuai anggaran."}, "answer": "D"}, {"id": 2, "difficulty": "mudah", "steps": 1, "question": "Seorang kenalan di media sosial menawarkan investasi dengan keuntungan 50% dalam satu minggu. Sikap yang paling tepat adalah....", "options": {"A": "Mencoba dengan modal kecil terlebih dahulu.", "B": "Meminjam uang agar memperoleh keuntungan lebih besar.", "C": "Menolak tawaran tersebut dan mengecek legalitasnya melalui OJK.", "D": "Mengajak teman ikut berinvestasi."}, "answer": "C"}, {"id": 3, "difficulty": "mudah", "steps": 1, "question": "Kelompok usaha santri menerima keluhan karena produk yang diterima pelanggan rusak. Sebagai wirausahawan yang baik, tindakan yang tepat adalah....", "options": {"A": "Mengurangi harga pembelian berikutnya.", "B": "Mengabaikan keluhan pelanggan.", "C": "Menyalahkan jasa pengiriman.", "D": "Meminta maaf dan mengganti produk yang rusak."}, "answer": "D"}, {"id": 4, "difficulty": "mudah", "steps": 1, "question": "Anda menerima pesan WhatsApp dari seseorang yang mengaku kurir dan meminta Anda mengunduh file berformat .apk untuk melacak paket. Apa tindakan yang paling tepat?", "options": {"A": "Mengunduh file tersebut.", "B": "Meminta teman mencobanya terlebih dahulu.", "C": "Menghapus pesan dan memblokir nomor pengirim.", "D": "Mengisi data pribadi agar paket segera dikirim."}, "answer": "C"}, {"id": 5, "difficulty": "mudah", "steps": 1, "question": "Anda ingin membeli kitab seharga Rp100.000, sedangkan tabungan Anda baru Rp50.000. Pilihan yang paling bijak adalah....", "options": {"A": "Berutang kepada teman.", "B": "Meminta tambahan uang kepada orang tua.", "C": "Menggunakan PayLater.", "D": "Menabung secara rutin hingga uang mencukupi."}, "answer": "D"}, {"id": 6, "difficulty": "mudah", "steps": 1, "question": "Cara yang paling tepat mencatat arus kas usaha santri adalah....", "options": {"A": "Hanya mencatat pemasukan.", "B": "Mengingat semua transaksi.", "C": "Mencatat saat ada pemeriksaan saja.", "D": "Mencatat setiap pemasukan dan pengeluaran secara rutin."}, "answer": "D"}, {"id": 7, "difficulty": "sedang", "steps": 3, "question": "Kelompok usaha santri mengeluarkan biaya Rp240.000 untuk membuat 40 kotak makanan. Berapa Harga Pokok Penjualan (HPP) setiap kotak?", "options": {"A": "Rp4.000", "B": "Rp5.000", "C": "Rp6.000", "D": "Rp7.000"}, "answer": "C"}, {"id": 8, "difficulty": "mudah", "steps": 1, "question": "Anda menemukan uang Rp5.000 di lingkungan pesantren. Sikap yang paling sesuai dengan nilai kejujuran adalah....", "options": {"A": "Menggunakannya untuk membeli jajanan.", "B": "Menyimpannya untuk kebutuhan pribadi.", "C": "Menyerahkannya kepada pengurus pesantren.", "D": "Memberikannya kepada teman."}, "answer": "C"}, {"id": 9, "difficulty": "mudah", "steps": 1, "question": "Mengapa seorang santri tetap dianjurkan bersedekah meskipun uang sakunya terbatas?", "options": {"A": "Untuk mendapatkan pujian.", "B": "Agar uang saku bertambah.", "C": "Untuk melatih kepedulian dan memperoleh keberkahan.", "D": "Agar dianggap dermawan."}, "answer": "C"}, {"id": 10, "difficulty": "mudah", "steps": 1, "question": "Tujuan utama seorang santri menjadi pengusaha adalah....", "options": {"A": "Cepat menjadi kaya.", "B": "Mengalahkan usaha milik orang lain.", "C": "Menciptakan manfaat, mandiri, dan membuka lapangan pekerjaan.", "D": "Mengisi waktu luang."}, "answer": "C"}, {"id": 11, "difficulty": "sedang", "steps": 3, "question": "Menurut metode pengelolaan uang 50/30/20, berapa persentase yang dialokasikan untuk keinginan (wants)?", "options": {"A": "20%", "B": "30%", "C": "50%", "D": "80%"}, "answer": "B"}, {"id": 12, "difficulty": "sedang", "steps": 3, "question": "Perbedaan utama Bank Syariah dan Bank Konvensional adalah....", "options": {"A": "Bank Syariah tidak memperoleh keuntungan.", "B": "Bank Syariah menggunakan bunga lebih rendah.", "C": "Bank Konvensional menggunakan akad bagi hasil.", "D": "Bank Syariah menggunakan akad bagi hasil, jual beli, atau sewa, sedangkan Bank Konvensional menggunakan bunga."}, "answer": "D"}, {"id": 13, "difficulty": "sedang", "steps": 3, "question": "Seorang santri membutuhkan dana cepat untuk biaya berobat dan menggadaikan barang di Pegadaian Syariah. Keunggulan utama sistem gadai syariah adalah....", "options": {"A": "Barang langsung menjadi milik pegadaian.", "B": "Tidak perlu menyerahkan barang jaminan.", "C": "Nasabah dikenakan biaya penitipan (ujrah), bukan bunga pinjaman.", "D": "Jumlah pinjaman tidak memiliki batas."}, "answer": "C"}, {"id": 14, "difficulty": "sulit", "steps": 5, "question": "Seorang santri memiliki tabungan Rp500.000 dan ingin mulai berinvestasi dengan risiko yang relatif rendah sesuai prinsip syariah. Pilihan yang paling tepat adalah....", "options": {"A": "Saham syariah.", "B": "Trading aset kripto.", "C": "Sukuk atau Reksa Dana Syariah Pasar Uang.", "D": "Trading valas harian."}, "answer": "C"}, {"id": 15, "difficulty": "sedang", "steps": 3, "question": "Mengapa seseorang perlu menjaga riwayat pembiayaannya tetap baik di SLIK OJK?", "options": {"A": "Agar lebih mudah memperoleh pembiayaan dari lembaga keuangan.", "B": "Agar mendapatkan potongan harga saat berbelanja.", "C": "Agar saldo tabungan otomatis bertambah.", "D": "Agar terbebas dari kewajiban membayar pajak."}, "answer": "A"}, {"id": 16, "difficulty": "sedang", "steps": 3, "question": "Apa manfaat utama Business Model Canvas (BMC) bagi seorang wirausahawan pemula?", "options": {"A": "Menghitung pajak usaha.", "B": "Menyusun seluruh model bisnis secara ringkas dalam satu lembar.", "C": "Menggantikan laporan laba rugi.", "D": "Menentukan bunga pinjaman usaha."}, "answer": "B"}, {"id": 17, "difficulty": "mudah", "steps": 1, "question": "Fitur apa pada WhatsApp Business yang digunakan untuk menampilkan daftar produk lengkap beserta foto dan harganya?", "options": {"A": "Broadcast", "B": "Quick Reply", "C": "Katalog Produk", "D": "Label Pelanggan"}, "answer": "C"}, {"id": 18, "difficulty": "mudah", "steps": 1, "question": "Apa dampak negatif yang sering muncul dari penggunaan PayLater?", "options": {"A": "Membuat seseorang lebih disiplin menabung.", "B": "Menjamin kondisi keuangan menjadi lebih baik.", "C": "Menghilangkan risiko utang.", "D": "Mendorong perilaku konsumtif karena pembayaran ditunda."}, "answer": "D"}, {"id": 19, "difficulty": "sedang", "steps": 3, "question": "Prinsip utama dalam menyusun anggaran (budgeting) yang dianjurkan adalah....", "options": {"A": "Pendapatan \u2212 Tabungan = Belanja.", "B": "Pendapatan \u2212 Belanja = Tabungan.", "C": "Belanja + Tabungan = Pendapatan.", "D": "Berutang lebih dahulu agar dapat menabung."}, "answer": "A"}, {"id": 20, "difficulty": "mudah", "steps": 1, "question": "Apa perbedaan utama antara Zakat Mal dan Infaq?", "options": {"A": "Zakat Mal memiliki nisab dan haul, sedangkan Infaq bersifat sukarela.", "B": "Zakat Mal hanya dilakukan pada bulan Ramadan.", "C": "Infaq wajib dikeluarkan setiap bulan.", "D": "Zakat Mal dan Infaq memiliki aturan yang sama."}, "answer": "A"}, {"id": 21, "difficulty": "mudah", "steps": 1, "question": "Fenomena seseorang berbelanja secara berlebihan karena merasa pesimis terhadap masa depan disebut....", "options": {"A": "FOMO", "B": "FOPO", "C": "Doom Spending", "D": "YOLO"}, "answer": "C"}, {"id": 22, "difficulty": "sedang", "steps": 3, "question": "Apa yang dimaksud dengan Break Even Point (BEP)?", "options": {"A": "Kondisi ketika usaha memperoleh laba paling tinggi.", "B": "Kondisi ketika pendapatan sama dengan biaya sehingga usaha belum untung maupun rugi.", "C": "Kondisi ketika usaha mengalami kerugian.", "D": "Jumlah modal awal yang harus dimiliki."}, "answer": "B"}, {"id": 23, "difficulty": "mudah", "steps": 1, "question": "Fitur WhatsApp Business yang membantu mengelompokkan pelanggan berdasarkan status pesanan adalah....", "options": {"A": "Katalog", "B": "Broadcast", "C": "Label Pelanggan", "D": "Quick Reply"}, "answer": "C"}, {"id": 24, "difficulty": "sulit", "steps": 5, "question": "Kelompok santri akan membuka usaha minuman herbal. Mengapa mereka perlu membuat Business Model Canvas terlebih dahulu?", "options": {"A": "Untuk menentukan warna logo.", "B": "Untuk memetakan pelanggan, produk, biaya, dan sumber pendapatan.", "C": "Untuk menghitung zakat usaha.", "D": "Untuk menentukan lokasi pesantren."}, "answer": "B"}, {"id": 25, "difficulty": "sedang", "steps": 3, "question": "Anda menerima file .apk dari nomor yang tidak dikenal dengan alasan untuk mengecek resi paket. Apa tindakan yang paling aman?", "options": {"A": "Menginstalnya agar paket dapat dilacak.", "B": "Mengirimkannya kepada teman.", "C": "Menghapus pesan dan tidak menginstalnya.", "D": "Mengisi data pribadi terlebih dahulu."}, "answer": "C"}, {"id": 26, "difficulty": "mudah", "steps": 1, "question": "Berdasarkan modul, apa kepanjangan BMT?", "options": {"A": "Badan Manajemen Terpadu.", "B": "Baitul Maal wat Tamwil.", "C": "Bank Mitra Terpercaya.", "D": "Badan Modal Terpadu."}, "answer": "B"}, {"id": 27, "difficulty": "sedang", "steps": 3, "question": "Apa yang dimaksud dengan akad Mudharabah?", "options": {"A": "Akad titipan.", "B": "Akad kerja sama usaha dengan sistem bagi hasil antara pemilik modal dan pengelola usaha.", "C": "Akad jual beli dengan margin keuntungan.", "D": "Akad sewa menyewa."}, "answer": "B"}, {"id": 28, "difficulty": "sedang", "steps": 3, "question": "Mengapa menyimpan uang tunai saja tanpa investasi memiliki risiko?", "options": {"A": "Karena nilai uang dapat berkurang akibat inflasi.", "B": "Karena uang tunai dilarang disimpan di rumah.", "C": "Karena uang akan otomatis berkurang setiap bulan.", "D": "Karena uang kertas memiliki masa kedaluwarsa."}, "answer": "A"}, {"id": 29, "difficulty": "mudah", "steps": 1, "question": "Apa yang dimaksud dengan inflasi?", "options": {"A": "Penurunan harga barang secara terus-menerus.", "B": "Kenaikan harga barang dan jasa secara umum dalam suatu periode.", "C": "Bertambahnya jumlah uang di tabungan.", "D": "Kenaikan keuntungan suatu usaha."}, "answer": "B"}, {"id": 30, "difficulty": "mudah", "steps": 1, "question": "Apa manfaat utama menggunakan Canva bagi pelaku usaha?", "options": {"A": "Menghitung keuntungan usaha.", "B": "Membuat desain promosi dengan mudah dan menarik.", "C": "Mencatat transaksi penjualan.", "D": "Menghitung pajak usaha."}, "answer": "B"}, {"id": 31, "difficulty": "mudah", "steps": 1, "question": "Mengapa testimoni pelanggan penting bagi sebuah usaha?", "options": {"A": "Agar harga produk menjadi lebih mahal.", "B": "Menambah kepercayaan calon pelanggan terhadap produk.", "C": "Mengurangi biaya produksi.", "D": "Menggantikan promosi."}, "answer": "B"}, {"id": 32, "difficulty": "sedang", "steps": 3, "question": "Seorang santri memiliki uang saku Rp200.000 per bulan. Jika menggunakan prinsip \"Sisihkan, bukan Sisakan\" dan ingin menabung 20%, berapa uang yang harus disisihkan di awal?", "options": {"A": "Rp20.000", "B": "Rp30.000", "C": "Rp40.000", "D": "Rp50.000"}, "answer": "C"}, {"id": 33, "difficulty": "mudah", "steps": 1, "question": "Apa yang dimaksud dengan konsep Tawazun dalam pengelolaan keuangan?", "options": {"A": "Menghabiskan seluruh uang untuk bersenang-senang.", "B": "Menyeimbangkan kebutuhan dunia dan akhirat dalam menggunakan harta.", "C": "Menyimpan semua uang tanpa digunakan.", "D": "Mengutamakan keinginan dibanding kebutuhan."}, "answer": "B"}, {"id": 34, "difficulty": "sedang", "steps": 3, "question": "Seorang santri ingin membeli sepatu baru karena semua temannya sudah memilikinya, padahal sepatu lamanya masih layak dipakai. Perilaku tersebut merupakan contoh....", "options": {"A": "Investasi.", "B": "Dana darurat.", "C": "FOMO (Fear of Missing Out).", "D": "Budgeting."}, "answer": "C"}, {"id": 35, "difficulty": "sulit", "steps": 5, "question": "Apa karakteristik utama Sukuk dibandingkan obligasi konvensional?", "options": {"A": "Menggunakan sistem bunga.", "B": "Tidak memiliki aset sebagai dasar penerbitan.", "C": "Diterbitkan berdasarkan prinsip syariah dan didukung aset (underlying asset).", "D": "Hanya dapat dibeli oleh pemerintah."}, "answer": "C"}, {"id": 36, "difficulty": "sedang", "steps": 3, "question": "Apa keuntungan utama Reksa Dana Syariah?", "options": {"A": "Keuntungan dijamin setiap bulan.", "B": "Dana dikelola oleh Manajer Investasi sesuai prinsip syariah.", "C": "Tidak memiliki risiko investasi.", "D": "Tidak memerlukan Manajer Investasi."}, "answer": "B"}, {"id": 37, "difficulty": "mudah", "steps": 1, "question": "Apa yang dimaksud dengan akad Murabahah?", "options": {"A": "Akad titipan.", "B": "Akad kerja sama usaha.", "C": "Akad jual beli dengan harga pokok ditambah keuntungan yang disepakati.", "D": "Akad sewa menyewa."}, "answer": "C"}, {"id": 38, "difficulty": "mudah", "steps": 1, "question": "Apa yang dimaksud dengan modal tetap?", "options": {"A": "Uang untuk membeli bahan baku setiap hari.", "B": "Modal yang digunakan untuk membeli aset yang dipakai dalam jangka panjang, seperti etalase atau mesin.", "C": "Modal untuk membayar listrik bulanan.", "D": "Keuntungan usaha."}, "answer": "B"}, {"id": 39, "difficulty": "mudah", "steps": 1, "question": "Mengapa TikTok dapat dimanfaatkan sebagai media promosi usaha?", "options": {"A": "Karena hanya digunakan untuk hiburan.", "B": "Karena dapat menjangkau banyak calon pelanggan melalui konten video.", "C": "Karena dapat menggantikan toko fisik.", "D": "Karena semua pengguna pasti membeli produk."}, "answer": "B"}, {"id": 40, "difficulty": "sedang", "steps": 3, "question": "Seorang santri menjual minuman seharga Rp8.000 per gelas. Jika HPP setiap gelas adalah Rp5.000, maka keuntungan setiap gelas adalah....", "options": {"A": "Rp2.000", "B": "Rp3.000", "C": "Rp4.000", "D": "Rp5.000"}, "answer": "B"}, {"id": 41, "difficulty": "sulit", "steps": 5, "question": "Seorang teman menawarkan investasi dengan janji keuntungan tinggi dalam waktu singkat dan meminta Anda segera mentransfer uang hari itu juga. Apa langkah yang paling tepat?", "options": {"A": "Segera ikut agar tidak ketinggalan.", "B": "Meminjam uang untuk memperbesar keuntungan.", "C": "Memeriksa legalitas investasi dan tidak mudah tergiur keuntungan yang tidak wajar.", "D": "Mengajak teman lain untuk ikut."}, "answer": "C"}, {"id": 42, "difficulty": "mudah", "steps": 1, "question": "Apa tujuan utama mempelajari literasi keuangan?", "options": {"A": "Agar dapat membeli barang lebih banyak.", "B": "Agar mampu mengelola keuangan secara bijak, terhindar dari penipuan, dan mencapai tujuan keuangan.", "C": "Agar menjadi kaya dalam waktu singkat.", "D": "Agar selalu menggunakan pinjaman online."}, "answer": "B"}];
+
+const AKSI_DATA = {"Keputusan Finansial": {"type": "ranking", "cards": [{"situasi": "Kamu menerima uang saku sebesar Rp500.000 untuk kebutuhan selama satu bulan. Agar uang tersebut cukup hingga akhir bulan, apa yang akan kamu lakukan?", "options": {"A": "Menggunakan uang untuk kebutuhan terlebih dahulu, kemudian menabung jika masih ada sisa.", "B": "Membuat anggaran bulanan, menyisihkan tabungan di awal, lalu menggunakan sisanya sesuai kebutuhan.", "C": "Menggunakan sebagian besar uang untuk membeli barang yang diinginkan karena masih awal bulan.", "D": "Menabung sebagian uang tanpa membuat anggaran."}, "ranking": ["B", "D", "A", "C"]}, {"situasi": "Kamu memiliki uang Rp300.000. Di saat yang sama kamu membutuhkan buku pelajaran, tetapi juga ingin membeli sepatu yang sedang tren.", "options": {"A": "Membeli sepatu karena sedang diskon.", "B": "Membeli buku terlebih dahulu, lalu menabung jika masih ingin membeli sepatu.", "C": "Membeli buku dan mencari sepatu bekas yang masih layak.", "D": "Menunda membeli keduanya sampai memperoleh uang tambahan."}, "ranking": ["B", "C", "D", "A"]}, {"situasi": "Marketplace sedang mengadakan Flash Sale dengan diskon hingga 70%.", "options": {"A": "Membandingkan harga dengan toko lain sebelum membeli.", "B": "Langsung membeli karena diskonnya besar.", "C": "Memastikan barang tersebut benar-benar dibutuhkan dan sesuai anggaran.", "D": "Menyimpan barang di keranjang lalu mempertimbangkannya beberapa hari."}, "ranking": ["C", "A", "D", "B"]}, {"situasi": "Kamu memperoleh bonus sebesar Rp500.000 karena memenangkan perlombaan.", "options": {"A": "Mengalokasikan bonus untuk sedekah, tabungan, dan kebutuhan sesuai rencana.", "B": "Menabung seluruh bonus.", "C": "Menggunakan sebagian untuk kebutuhan, sisanya ditabung.", "D": "Menghabiskan seluruh bonus untuk membeli barang yang diinginkan."}, "ranking": ["A", "C", "B", "D"]}, {"situasi": "Sepeda yang kamu gunakan ke sekolah tiba-tiba rusak sehingga membutuhkan biaya perbaikan.", "options": {"A": "Menggunakan dana darurat yang telah disiapkan.", "B": "Meminta bantuan orang tua, kemudian menggantinya dari uang saku berikutnya.", "C": "Menunda memperbaiki sepeda hingga beberapa bulan.", "D": "Meminjam uang teman untuk memperbaikinya."}, "ranking": ["A", "B", "D", "C"]}, {"situasi": "Kamu ingin membeli sebuah tablet untuk belajar, tetapi tabunganmu belum cukup.", "options": {"A": "Membeli secara cicilan agar bisa segera memiliki tablet.", "B": "Menunda pembelian sambil menabung hingga uangnya cukup.", "C": "Membeli tablet bekas yang masih layak sesuai kemampuan.", "D": "Meminjam uang kepada teman untuk membeli tablet baru."}, "ranking": ["B", "C", "D", "A"]}, {"situasi": "Enam bulan lagi kamu ingin membeli laptop untuk kuliah.", "options": {"A": "Menentukan target tabungan bulanan dan mencatat perkembangan setiap bulan.", "B": "Menabung jika ada sisa uang setiap bulan.", "C": "Menabung dalam jumlah yang berbeda-beda sesuai kondisi.", "D": "Berharap mendapat hadiah atau uang tambahan sehingga tidak perlu menabung."}, "ranking": ["A", "C", "B", "D"]}]}, "Peluang Bisnis": {"type": "dice", "table": {"1": {"kejadian": "Sepi pembeli", "hasil": "Mundur 2 langkah"}, "2": {"kejadian": "Untung sedikit", "hasil": "Maju 1 langkah"}, "3": {"kejadian": "Modal kembali", "hasil": "Maju 2 langkah"}, "4": {"kejadian": "Untung baik", "hasil": "Maju 3 langkah"}, "5": {"kejadian": "Ramai pembeli", "hasil": "Maju 4 langkah"}, "6": {"kejadian": "Usaha viral", "hasil": "Maju 5 langkah"}}, "cards": [{"situasi": "Di lingkungan pesantren cuaca sedang panas. Kamu membuka usaha es teh saat jam istirahat."}, {"situasi": "Pesantren mengadakan bazar akhir pekan. Kamu menyewa satu stan untuk menjual makanan ringan buatan sendiri."}, {"situasi": "Kamu mulai menjual produk melalui media sosial dan marketplace."}, {"situasi": "Teman-teman mengetahui kamu pandai membuat desain poster dan logo. Kamu membuka jasa desain sederhana.."}, {"situasi": "Kamu memanfaatkan lahan kosong untuk menanam sayuran dan menjual hasil panennya."}, {"situasi": "Kamu membuat produk makanan yang unik dan mulai dipromosikan melalui media sosial."}]}, "Investasi": {"type": "dice", "table": {"1": {"kejadian": "Pasar bearish", "hasil": "Mundur 2 langkah"}, "2": {"kejadian": "Koreksi pasar", "hasil": "Maju 1 langkah"}, "3": {"kejadian": "Pasar stabil", "hasil": "Maju 2 langkah"}, "4": {"kejadian": "Bull market", "hasil": "Maju 3 langkah"}, "5": {"kejadian": "Keuntungan tinggi", "hasil": "Maju 4 langkah"}, "6": {"kejadian": "Multibagger", "hasil": "Maju 5 langkah"}}, "cards": [{"situasi": "Kamu mulai berinvestasi sebesar Rp1.000.000 pada instrumen syariah."}, {"situasi": "Kamu membeli emas untuk persiapan biaya kuliah lima tahun lagi."}, {"situasi": "Kamu mulai berinvestasi pada reksa dana syariah secara rutin setiap bulan."}, {"situasi": "Kamu membeli saham syariah dari perusahaan yang memiliki fundamental baik."}, {"situasi": "Kamu membagi investasi ke emas, saham syariah, dan reksa dana syariah."}, {"situasi": "Kamu menerima penawaran investasi yang legal dan telah memahami produk serta risikonya."}, {"situasi": "Kamu berinvestasi secara rutin setiap bulan selama beberapa tahun."}]}, "Rezeki": {"type": "dice", "table": {"1": {"kejadian": "Rezeki kecil", "hasil": "Maju 1 langkah"}, "2": {"kejadian": "Mendapat hadiah sederhana", "hasil": "Maju 2 langkah"}, "3": {"kejadian": "Mendapat bonus", "hasil": "Maju 3 langkah"}, "4": {"kejadian": "Mendapat beasiswa/insentif", "hasil": "Maju 4 langkah"}, "5": {"kejadian": "Mendapat keuntungan besar", "hasil": "Maju 5 langkah"}, "6": {"kejadian": "Rezeki tak terduga yang sangat besar", "hasil": "Maju 6 langkah"}}, "cards": [{"situasi": "Prestasi belajarmu sangat baik sehingga berpeluang memperoleh beasiswa pendidikan."}, {"situasi": "Kamu mengikuti lomba di sekolah atau pesantren dan berhasil menjadi juara."}, {"situasi": "Usaha kecil yang kamu jalankan memperoleh keuntungan di luar perkiraan."}, {"situasi": "Menjelang hari raya atau acara keluarga, kamu menerima THR atau uang saku tambahan."}, {"situasi": "Kamu menerima hibah atau warisan yang dikelola sesuai prinsip syariah."}], "table_source": "docx-table"}, "Musibah": {"type": "dice", "table": {"1": {"kejadian": "Dampak kecil, mudah diatasi", "hasil": "Mundur 1 langkah"}, "2": {"kejadian": "Dampak ringan", "hasil": "Mundur 2 langkah"}, "3": {"kejadian": "Dampak sedang", "hasil": "Mundur 3 langkah"}, "4": {"kejadian": "Dampak cukup besar", "hasil": "Mundur 4 langkah"}, "5": {"kejadian": "Dampak besar", "hasil": "Mundur 5 langkah"}, "6": {"kejadian": "Musibah berat, namun teratasi baik karena dana darurat sudah disiapkan", "hasil": "Mundur 1 langkah"}}, "cards": [{"situasi": "Dompet atau barang berhargamu hilang sehingga kamu harus mengeluarkan biaya untuk menggantinya.", "pelajaran": "Simpan barang berharga di tempat yang aman dan buat cadangan dokumen penting."}, {"situasi": "Kamu jatuh sakit dan membutuhkan biaya pengobatan.", "pelajaran": "Siapkan dana darurat untuk menghadapi kebutuhan yang tidak terduga."}, {"situasi": "Usaha kecil yang kamu jalankan mengalami penurunan penjualan sehingga keuntungan berkurang.", "pelajaran": "Evaluasi usaha secara berkala dan jangan bergantung pada satu sumber pendapatan."}, {"situasi": "Terjadi bencana alam yang menyebabkan sebagian aset atau perlengkapanmu rusak.", "pelajaran": "Lindungi aset penting dan miliki rencana menghadapi keadaan darurat."}, {"situasi": "Kamu hampir menjadi korban penipuan digital sehingga mengalami kerugian finansial.", "pelajaran": "Selalu verifikasi informasi dan jangan mudah memberikan data pribadi atau mentransfer uang tanpa memastikan kebenarannya."}], "table_source": "authored-placeholder"}, "Sedekah": {"type": "ranking", "cards": [{"situasi": "Kamu menerima uang saku bulanan. Di masjid pesantren sedang diadakan penggalangan dana untuk membantu korban bencana. Apa keputusan yang paling tepat?", "options": {"A": "Menyisihkan sebagian uang saku sesuai kemampuan, tanpa mengganggu kebutuhan utama.", "B": "Menunggu sampai memiliki uang lebih banyak baru akan bersedekah.", "C": "Memberikan seluruh uang saku sehingga kebutuhanmu sendiri tidak dapat terpenuhi.", "D": "Tidak ikut bersedekah karena merasa nominal yang dimiliki terlalu kecil."}, "ranking": ["A", "B", "C", "D"]}, {"situasi": "Temanmu mengalami kesulitan memahami pelajaran akuntansi syariah menjelang ujian. Apa yang akan kamu lakukan?", "options": {"A": "Mengirimkan catatan pelajaran yang kamu miliki.", "B": "Meluangkan waktu untuk membantu belajar tanpa mengharapkan imbalan.", "C": "Menyarankan teman mencari materi sendiri di internet.", "D": "Menolak membantu karena khawatir nilai teman menjadi lebih tinggi."}, "ranking": ["B", "A", "C", "D"]}, {"situasi": "Kamu membawa bekal lebih ke sekolah. Saat istirahat, kamu melihat teman lupa membawa bekal dan tidak memiliki uang untuk membeli makanan.", "options": {"A": "Menyarankan teman meminjam uang kepada orang lain.", "B": "Memberikan sebagian makanan yang kamu miliki.", "C": "Mengajak teman makan bersama dengan membagi bekal yang kamu bawa.", "D": "Tidak melakukan apa-apa karena itu bukan tanggung jawabmu."}, "ranking": ["C", "B", "A", "D"]}, {"situasi": "Usaha kecil yang kamu jalankan memperoleh keuntungan lebih besar dari biasanya. Apa yang akan kamu lakukan?", "options": {"A": "Menghabiskan seluruh keuntungan untuk membeli barang yang diinginkan", "B": "Mengembangkan usaha terlebih dahulu, kemudian berencana bersedekah jika keuntungan semakin besar.", "C": "Menabung seluruh keuntungan agar modal semakin banyak.", "D": "Menyisihkan sebagian keuntungan untuk sedekah, sebagian untuk mengembangkan usaha, dan sisanya ditabung."}, "ranking": ["D", "B", "C", "A"]}]}, "Tantangan": {"type": "ranking", "cards": [{"situasi": "Marketplace memberikan diskon 70% untuk barang yang sebenarnya tidak kamu butuhkan.", "options": {"A": "Tetap membeli karena diskonnya besar.", "B": "Membeli jika teman juga membeli.", "C": "Membeli dua agar lebih hemat", "D": "Tidak membeli karena bukan kebutuhan."}, "ranking": ["D", "B", "A", "C"]}, {"situasi": "Di akhir bulan kamu masih memiliki uang Rp100.000.", "options": {"A": "Menghabiskan semuanya.", "B": "Menabung seluruhnya.", "C": "Meminjam uang teman agar uang sendiri tetap utuh.", "D": "Menabung sebagian dan menyimpan sebagian untuk kebutuhan mendadak."}, "ranking": ["D", "B", "A", "C"]}, {"situasi": "Seseorang menawarkan investasi dengan keuntungan 30% per bulan tanpa risiko.", "options": {"A": "Langsung ikut.", "B": "Mengajak teman ikut bersama.", "C": "Mengecek legalitas dan memahami produknya terlebih dahulu.", "D": "Mencoba sedikit dulu."}, "ranking": ["C", "D", "B", "A"]}, {"situasi": "Kamu sedang menabung untuk membeli laptop, tetapi ada sepatu yang sedang tren.", "options": {"A": "Membeli sepatu.", "B": "Mengurangi tabungan agar bisa membeli sepatu.", "C": "Tetap menabung sesuai target.", "D": "Meminjam uang untuk membeli sepatu."}, "ranking": ["C", "B", "A", "D"]}, {"situasi": "Selama satu minggu kamu tidak pernah mencatat pengeluaran.", "options": {"A": "Mulai mencatat seluruh pemasukan dan pengeluaran.", "B": "Mengingat saja tanpa mencatat.", "C": "Mencatat jika pengeluarannya besar.", "D": "Tidak perlu mencatat karena uang masih ada."}, "ranking": ["A", "C", "B", "D"]}]}};
+
+const CATEGORY_META = {
+  "Keputusan Finansial": { icon:"💰", desc:"Kelola uang saku secara bijak" },
+  "Peluang Bisnis":      { icon:"💼", desc:"Simulasi usaha kecil santri" },
+  "Investasi":           { icon:"📈", desc:"Simulasi investasi syariah" },
+  "Rezeki":              { icon:"🌟", desc:"Nikmat tak terduga" },
+  "Musibah":             { icon:"⚠️", desc:"Menghadapi risiko & kerugian" },
+  "Sedekah":             { icon:"🤲", desc:"Kepedulian & berbagi" },
+  "Tantangan":           { icon:"🔥", desc:"Uji ketahanan finansialmu" },
+};
+
+/* ============== STATE ============== */
+let state = {
+  screen: "home",           // home | literasi-play | aksi-play
+  category: null,
+  cardIndex: null,
+  selectedOption: null,
+  revealed: false,
+  diceValue: null,
+  diceRolling: false,
+  showDiceTable: false,
+};
+
+const app = document.getElementById("app");
+
+function resetCardState(){
+  state.selectedOption = null;
+  state.revealed = false;
+  state.diceValue = null;
+  state.diceRolling = false;
+  state.showDiceTable = false;
+}
+
+function goHome(){
+  state.screen = "home";
+  state.category = null;
+  state.cardIndex = null;
+  resetCardState();
+  render();
+}
+
+function startLiterasi(){
+  state.screen = "literasi-play";
+  state.cardIndex = Math.floor(Math.random()*LITERASI_DATA.length);
+  resetCardState();
+  render();
+}
+
+function pickRandomAksi(excludeCategory, excludeIndex){
+  const catNames = Object.keys(AKSI_DATA);
+  let catName, idx;
+  // avoid repeating the exact same card twice in a row when possible
+  let tries = 0;
+  do{
+    catName = catNames[Math.floor(Math.random()*catNames.length)];
+    const cards = AKSI_DATA[catName].cards;
+    idx = Math.floor(Math.random()*cards.length);
+    tries++;
+  } while(tries<8 && catName===excludeCategory && idx===excludeIndex);
+  return {catName, idx};
+}
+
+function startAksiRandom(){
+  const {catName, idx} = pickRandomAksi(state.category, state.cardIndex);
+  state.screen = "aksi-play";
+  state.category = catName;
+  state.cardIndex = idx;
+  resetCardState();
+  render();
+}
+
+function shuffleCurrent(){
+  resetCardState();
+  if(state.screen === "literasi-play"){
+    let idx;
+    do{ idx = Math.floor(Math.random()*LITERASI_DATA.length); }
+    while(LITERASI_DATA.length>1 && idx===state.cardIndex);
+    state.cardIndex = idx;
+  } else if(state.screen === "aksi-play"){
+    const {catName, idx} = pickRandomAksi(state.category, state.cardIndex);
+    state.category = catName;
+    state.cardIndex = idx;
+  }
+  render();
+}
+
+function selectOption(letter){
+  if(state.revealed) return;
+  state.selectedOption = letter;
+  render();
+}
+
+function revealAnswer(){
+  state.revealed = true;
+  render();
+}
+
+function toggleDiceTable(){
+  state.showDiceTable = !state.showDiceTable;
+  render();
+}
+
+function rollDice(){
+  if(state.diceRolling) return;
+  state.diceRolling = true;
+  render();
+  setTimeout(()=>{
+    state.diceValue = 1 + Math.floor(Math.random()*6);
+    state.diceRolling = false;
+    render();
+  }, 420);
+}
+
+/* ============== RENDER HELPERS ============== */
+function diffLabel(diff){
+  if(diff==="mudah") return {cls:"diff-mudah", text:"🟢 Mudah"};
+  if(diff==="sedang") return {cls:"diff-sedang", text:"🟡 Sedang"};
+  return {cls:"diff-sulit", text:"🔴 Sulit"};
+}
+
+function stepIsMaju(text){
+  return /maju/i.test(text);
+}
+
+function topbarHTML(showBack, backFn, title, subtitle){
+  return `
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">🕌</div>
+        <div class="brand-text">
+          <div class="eyebrow">Jejak Finansial Santri</div>
+          <h1>${title || "Kartu Digital"}</h1>
+        </div>
+      </div>
+      ${showBack ? `<button class="back-btn" onclick="${backFn}">← Kembali</button>` : ""}
+    </div>
+  `;
+}
+
+/* ============== SCREENS ============== */
+function renderHome(){
+  app.innerHTML = `
+    ${topbarHTML(false, "", "Kartu Digital")}
+    <div class="panel">
+      <div class="hero">
+        <div class="kicker">Board Game Edukasi Literasi Keuangan Syariah</div>
+        <h2>Pilih jenis kartu untuk dimainkan</h2>
+        <p>Pemain berhenti di petak hijau atau kuning pada papan, lalu membuka kartu digital yang sesuai di sini.</p>
+      </div>
+      <div class="choice-grid">
+        <div class="choice-card literasi" onclick="startLiterasi()">
+          <span class="cc-icon">📚</span>
+          <h3>Kartu Literasi</h3>
+          <p>Soal pilihan ganda seputar keuangan syariah, menabung, investasi, hingga kewirausahaan santri.</p>
+          <span class="cc-count">${LITERASI_DATA.length} kartu</span>
+        </div>
+        <div class="choice-card aksi" onclick="startAksiRandom()">
+          <span class="cc-icon">🧭</span>
+          <h3>Kartu Aksi</h3>
+          <p>Simulasi situasi nyata: ambil keputusan atau lempar dadu untuk melihat konsekuensinya.</p>
+          <span class="cc-count">${Object.values(AKSI_DATA).reduce((n,c)=>n+c.cards.length,0)} kartu · 7 kategori</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">Petak 📚 hijau → Kartu Literasi &nbsp;•&nbsp; Petak 🧭 kuning → Kartu Aksi<br>Politeknik Negeri Bandung — D4 Keuangan Syariah</div>
+  `;
+}
+
+function renderLiterasiPlay(){
+  const card = LITERASI_DATA[state.cardIndex];
+  const d = diffLabel(card.difficulty);
+  const letters = ["A","B","C","D"];
+
+  const optionsHTML = letters.map(letter=>{
+    const isSelected = state.selectedOption === letter;
+    const isCorrect = letter === card.answer;
+    let cls = "opt-btn";
+    if(state.revealed){
+      if(isCorrect) cls += " correct-answer";
+      else if(isSelected) cls += " wrong-selected";
+    } else if(isSelected){
+      cls += " selected";
+    }
+    return `
+      <button class="${cls}" onclick="selectOption('${letter}')" ${state.revealed?"disabled":""}>
+        <span class="opt-letter">${letter}</span>
+        <span>${card.options[letter]}</span>
+        ${state.revealed && isCorrect ? `<span class="opt-result result-maju" style="background:transparent;">✓ Jawaban Benar</span>` : ""}
+      </button>
+    `;
+  }).join("");
+
+  const answerBox = state.revealed ? `
+    <div class="answer-box">
+      <div class="ab-title">Pembahasan</div>
+      <div style="font-size:13.5px;line-height:1.6;color:#EFE6C8;">
+        Jawaban yang tepat adalah <b style="color:var(--gold-300)">${card.answer}</b> — “${card.options[card.answer]}”.
+        ${state.selectedOption ? (state.selectedOption===card.answer
+          ? `<br><br>🎉 Pilihanmu tepat! Maju <b style="color:#B7E8C9">${card.steps} langkah</b>.`
+          : `<br><br>Pilihanmu belum tepat. Mundur <b style="color:#F3C2B4">${card.steps} langkah</b>, lalu pelajari alasannya bersama fasilitator.`) : ""}
+      </div>
+    </div>
+  ` : "";
+
+  app.innerHTML = `
+    ${topbarHTML(true, "goHome()", "Kartu Literasi")}
+    <div class="panel">
+      <div class="mode-title"><span class="mi">📚</span><h2>Kartu Literasi Keuangan Syariah</h2></div>
+      <div class="mode-sub">Soal ${card.id} dari ${LITERASI_DATA.length}</div>
+
+      <div class="card-stage">
+        <div class="card-face">
+          <span class="card-id">#${String(card.id).padStart(2,"0")}</span>
+          <span class="difficulty-badge ${d.cls}">${d.text} · ${state.revealed ? "" : "+"}${card.steps} Langkah</span>
+          <div class="card-question">${card.question}</div>
+          <div class="options">${optionsHTML}</div>
+        </div>
+      </div>
+
+      ${answerBox}
+
+      <div class="btn-row">
+        <button class="btn btn-gold" onclick="shuffleCurrent()">🔀 Acak Kartu</button>
+        <button class="btn btn-primary" onclick="revealAnswer()" ${state.revealed?"disabled":""}>👁 Tampilkan Jawaban</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderAksiPlay(){
+  const cat = AKSI_DATA[state.category];
+  const meta = CATEGORY_META[state.category];
+  const card = cat.cards[state.cardIndex];
+
+  if(cat.type === "ranking"){
+    renderAksiRanking(cat, meta, card);
+  } else {
+    renderAksiDice(cat, meta, card);
+  }
+}
+
+function renderAksiRanking(cat, meta, card){
+  const letters = ["A","B","C","D"];
+  const stepFor = (letter)=>{
+    const pos = card.ranking.indexOf(letter); // 0..3
+    const steps = [ {n:3,dir:"Maju"}, {n:2,dir:"Maju"}, {n:1,dir:"Maju"}, {n:1,dir:"Mundur"} ];
+    return steps[pos];
+  };
+
+  const optionsHTML = letters.map(letter=>{
+    const isSelected = state.selectedOption === letter;
+    const st = stepFor(letter);
+    const isMaju = st.dir === "Maju";
+    let cls = "opt-btn";
+    if(isSelected) cls += " selected " + (isMaju ? "result-maju" : "result-mundur");
+    return `
+      <button class="${cls}" onclick="selectOption('${letter}')">
+        <span class="opt-letter">${letter}</span>
+        <span>${card.options[letter]}</span>
+        ${isSelected ? `<span class="opt-result">${st.dir} ${st.n}</span>` : ""}
+      </button>
+    `;
+  }).join("");
+
+  const answerBox = state.revealed ? `
+    <div class="answer-box">
+      <div class="ab-title">Urutan Keputusan Terbaik</div>
+      ${card.ranking.map((letter,i)=>{
+        const st = stepFor(letter);
+        const isMaju = st.dir === "Maju";
+        return `
+          <div class="rank-row">
+            <span class="rank-pos">${i+1}</span>
+            <span class="rank-letter">${letter}</span>
+            <span class="rank-text">${card.options[letter]}</span>
+            <span class="rank-step ${isMaju?"maju":"mundur"}">${st.dir} ${st.n}</span>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  ` : "";
+
+  app.innerHTML = `
+    ${topbarHTML(true, "goHome()", "Kartu Aksi")}
+    <div class="panel">
+      <div class="mode-title"><span class="mi">${meta.icon}</span><h2>${state.category}</h2></div>
+      <div class="mode-sub">🎴 Kategori terpilih acak · Pilih tindakan A–D</div>
+
+      <div class="card-stage">
+        <div class="card-face">
+          <div class="card-question">${card.situasi}</div>
+          <div class="options">${optionsHTML}</div>
+        </div>
+      </div>
+
+      ${answerBox}
+
+      <div class="btn-row">
+        <button class="btn btn-gold" onclick="shuffleCurrent()">🔀 Acak Kartu</button>
+        <button class="btn btn-primary" onclick="revealAnswer()" ${state.revealed?"disabled":""}>👁 Tampilkan Jawaban</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderAksiDice(cat, meta, card){
+  const table = cat.table;
+  const diceOutcome = state.diceValue ? table[state.diceValue] : null;
+  const diceIsMaju = diceOutcome ? stepIsMaju(diceOutcome.hasil) : null;
+
+  const diceResultHTML = state.diceValue ? `
+    <div style="margin-top:12px;">
+      <div class="dice-result-text">Dadu menunjukkan angka <b>${state.diceValue}</b> → <b>${diceOutcome.kejadian}</b></div>
+      <span class="dice-outcome-pill" style="background:${diceIsMaju?"var(--maju-bg)":"var(--mundur-bg)"};color:${diceIsMaju?"var(--maju)":"var(--mundur)"};">${diceOutcome.hasil}</span>
+    </div>
+  ` : `<div class="dice-result-text" style="margin-top:12px;">Tekan “Lempar Dadu” untuk melihat hasilnya.</div>`;
+
+  const diceTableHTML = state.showDiceTable ? `
+    <div class="answer-box" style="background:var(--paper); color:var(--ink);">
+      <div class="ab-title" style="color:var(--gold-600);">🎲 Tabel Hasil Dadu — ${state.category}</div>
+      <table class="dice-table">
+        <thead><tr><th>Dadu</th><th>Kejadian</th><th>Langkah</th></tr></thead>
+        <tbody>
+          ${[1,2,3,4,5,6].map(n=>{
+            const row = table[n];
+            const maju = stepIsMaju(row.hasil);
+            return `<tr><td>🎲 ${n}</td><td>${row.kejadian}</td><td class="step-cell ${maju?"maju":"mundur"}">${row.hasil}</td></tr>`;
+          }).join("")}
+        </tbody>
+      </table>
+      ${cat.table_source==="authored-placeholder" ? `<div class="table-note">Catatan: tabel dadu untuk kategori Musibah belum tercantum eksplisit pada Buku Kartu Aksi sumber, sehingga disusun mengikuti pola kategori lain (dapat disesuaikan fasilitator sebelum dicetak).</div>` : ""}
+    </div>
+  ` : "";
+
+  const pelajaranHTML = card.pelajaran ? `
+    <div class="pelajaran-box"><b>Pelajaran:</b> ${card.pelajaran}</div>
+  ` : "";
+
+  app.innerHTML = `
+    ${topbarHTML(true, "goHome()", "Kartu Aksi")}
+    <div class="panel">
+      <div class="mode-title"><span class="mi">${meta.icon}</span><h2>${state.category}</h2></div>
+      <div class="mode-sub">🎴 Kategori terpilih acak · Lempar dadu 🎲</div>
+
+      <div class="card-stage">
+        <div class="card-face">
+          <div class="situasi-only">${card.situasi}</div>
+          ${pelajaranHTML}
+
+          <div class="dice-row" style="margin-top:16px;">
+            <div class="die ${state.diceRolling?"rolling":""}">${state.diceRolling ? "?" : (state.diceValue || "🎲")}</div>
+            <div>${diceResultHTML}</div>
+          </div>
+        </div>
+      </div>
+
+      ${diceTableHTML}
+
+      <div class="btn-row">
+        <button class="btn btn-gold" onclick="shuffleCurrent()">🔀 Acak Kartu</button>
+        <button class="btn btn-primary" onclick="rollDice()" ${state.diceRolling?"disabled":""}>🎲 Lempar Dadu</button>
+        <button class="btn btn-ghost" onclick="toggleDiceTable()">${state.showDiceTable ? "Sembunyikan Tabel" : "📋 Tampilkan Tabel Dadu"}</button>
+      </div>
+    </div>
+  `;
+}
+
+/* ============== MAIN RENDER ============== */
+function render(){
+  if(state.screen === "home") renderHome();
+  else if(state.screen === "literasi-play") renderLiterasiPlay();
+  else if(state.screen === "aksi-play") renderAksiPlay();
+}
+
+render();
+</script>
+</body>
+</html>
