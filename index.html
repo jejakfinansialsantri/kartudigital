@@ -139,11 +139,10 @@
   }
   .choice-grid{
     display:grid;
-    grid-template-columns:1fr 1fr 1fr 1fr;
+    grid-template-columns:repeat(auto-fit, minmax(132px, 1fr));
     gap:14px;
     margin-top:22px;
   }
-  @media (max-width:760px){ .choice-grid{grid-template-columns:1fr 1fr;} }
   @media (max-width:420px){ .choice-grid{grid-template-columns:1fr;} }
 
   .choice-card{
@@ -169,6 +168,9 @@
   }
   .choice-card.panduan{
     background:linear-gradient(155deg, #A97C50, #4A3423);
+  }
+  .choice-card.dadu{
+    background:linear-gradient(155deg, #E8873A, #93430F);
   }
   .choice-card .cc-icon{font-size:30px;display:block;margin-bottom:14px;}
   .choice-card h3{font-size:19px;color:var(--paper);margin-bottom:6px;}
@@ -588,6 +590,97 @@
     font-size:13px; line-height:1.6; color:var(--ink);
   }
   .pb-menu-item .pb-menu-icon{ font-size:18px; flex:0 0 auto; }
+
+  /* ---------- Dadu Permainan ---------- */
+  .gd-mode-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px;
+  }
+  @media (max-width:480px){ .gd-mode-grid{grid-template-columns:1fr;} }
+  .gd-mode-card{
+    cursor:pointer; border-radius:18px; padding:20px 16px; text-align:center;
+    border:2.5px solid rgba(13,45,31,0.1); background:var(--paper);
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .gd-mode-card:hover{ transform:translateY(-2px); }
+  .gd-mode-card .gd-mode-icon{ font-size:30px; display:block; margin-bottom:8px; }
+  .gd-mode-card h3{ font-size:16px; color:var(--green-900); margin-bottom:6px; }
+  .gd-mode-card p{ font-size:11.5px; line-height:1.55; color:var(--ink-soft); margin:0; }
+  .gd-mode-card.active{
+    border-color:var(--gold-500); background:var(--gold-100);
+    box-shadow:0 8px 18px -10px rgba(199,154,43,0.5);
+  }
+  .gd-mode-card .gd-active-tag{
+    display:none; margin-top:10px; font-size:10.5px; font-weight:700;
+    color:var(--gold-600); letter-spacing:.05em; text-transform:uppercase;
+  }
+  .gd-mode-card.active .gd-active-tag{ display:block; }
+
+  .gd-stage{
+    margin-top:20px; background:linear-gradient(180deg, #FFFEFA, #FBF4E1);
+    border:1.5px dashed var(--gold-500); border-radius:18px;
+    padding:26px 18px; text-align:center;
+  }
+  .gd-mode-label{
+    font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--gold-600); margin-bottom:16px;
+  }
+  .gd-dice-row{
+    display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:nowrap;
+  }
+  .gd-die{
+    width:76px; height:76px; border-radius:18px; flex:0 0 auto;
+    background:linear-gradient(155deg,#fff,#F1E6C8);
+    border:2px solid var(--gold-500);
+    display:flex; align-items:center; justify-content:center;
+    font-size:34px; font-weight:800; color:var(--green-900);
+    font-family:'Fraunces',serif;
+    box-shadow:0 8px 18px -8px rgba(13,45,31,0.35);
+    transition:transform .15s ease;
+  }
+  .gd-die.rolling{ animation:gdSpin .12s linear infinite; }
+  @keyframes gdSpin{
+    0%{transform:rotate(0deg) scale(1);}
+    50%{transform:rotate(180deg) scale(1.06);}
+    100%{transform:rotate(360deg) scale(1);}
+  }
+  .gd-plus{ font-family:'Fraunces',serif; font-size:26px; color:var(--gold-600); font-weight:700; }
+  .gd-status-text{ margin-top:14px; font-size:13px; color:var(--ink-soft); min-height:18px; }
+  .gd-total{
+    margin-top:10px; font-family:'Fraunces',serif; font-size:22px; font-weight:700; color:var(--green-900);
+  }
+  .gd-instruction{
+    margin-top:12px; display:inline-block;
+    background:var(--maju-bg); color:var(--maju);
+    font-weight:700; font-size:13.5px; padding:9px 18px; border-radius:999px;
+  }
+  .gd-twin-badge{
+    margin-top:10px; display:inline-block;
+    background:var(--gold-100); color:var(--gold-600);
+    font-weight:700; font-size:12px; padding:5px 12px; border-radius:999px;
+  }
+  .gd-roll-btn-wrap{ margin-top:20px; }
+
+  .gd-history{ margin-top:18px; }
+  .gd-history-title{
+    display:flex; align-items:center; justify-content:space-between;
+    font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--gold-600); margin-bottom:10px;
+  }
+  .gd-history-clear{
+    border:none; background:none; cursor:pointer; font-size:11px; font-weight:700;
+    color:var(--mundur); font-family:'Inter',sans-serif; text-decoration:underline;
+  }
+  .gd-history-list{ display:flex; flex-direction:column; gap:6px; }
+  .gd-history-row{
+    display:flex; align-items:center; gap:8px;
+    background:var(--cream); border-radius:10px; padding:8px 12px;
+    font-size:12.5px; color:var(--ink);
+  }
+  .gd-history-num{
+    width:18px; height:18px; border-radius:50%; background:var(--green-800); color:#fff;
+    font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+  }
+  .gd-history-empty{ font-size:12.5px; color:var(--ink-soft); font-style:italic; text-align:center; padding:8px 0; }
 </style>
 </head>
 <body>
@@ -678,7 +771,7 @@ const SNAKE_DATA = [
 const GLOSSARY_DATA = [{"term": "Aset", "definition": "Segala sesuatu yang dimiliki dan memiliki nilai ekonomi, seperti uang, emas, tabungan, atau usaha yang dapat memberikan manfaat di masa depan."}, {"term": "Anggaran (Budget)", "definition": "Rencana pengeluaran dan pemasukan yang disusun untuk mengelola keuangan secara teratur."}, {"term": "Beasiswa", "definition": "Bantuan biaya pendidikan yang diberikan kepada peserta didik berdasarkan prestasi, kebutuhan, atau persyaratan tertentu."}, {"term": "Bagi Hasil", "definition": "Sistem pembagian keuntungan dalam akad syariah berdasarkan kesepakatan antara para pihak yang bekerja sama."}, {"term": "Bisnis", "definition": "Kegiatan menghasilkan barang atau jasa dengan tujuan memperoleh keuntungan yang halal."}, {"term": "Bullying Finansial", "definition": "Tekanan dari lingkungan yang mendorong seseorang mengeluarkan uang agar diterima dalam pergaulan, meskipun tidak sesuai dengan kemampuan keuangan."}, {"term": "Dana Darurat", "definition": "Sejumlah uang yang disiapkan untuk menghadapi kebutuhan mendesak atau keadaan tidak terduga."}, {"term": "Diversifikasi", "definition": "Strategi menyebarkan investasi ke beberapa instrumen agar risiko kerugian tidak terpusat pada satu jenis investasi."}, {"term": "Edukasi Keuangan", "definition": "Proses belajar untuk memahami cara memperoleh, mengelola, menggunakan, dan mengembangkan keuangan secara bijak."}, {"term": "Financial Freedom (Kemandirian Finansial)", "definition": "Keadaan ketika seseorang mampu memenuhi kebutuhan hidup melalui pengelolaan keuangan yang baik tanpa bergantung pada utang yang berlebihan, serta tetap menjalankan prinsip-prinsip syariah."}, {"term": "FOMO (Fear of Missing Out)", "definition": "Perasaan takut ketinggalan tren sehingga membuat seseorang mengambil keputusan keuangan secara terburu-buru tanpa pertimbangan yang matang."}, {"term": "Gharar", "definition": "Ketidakjelasan atau ketidakpastian dalam suatu transaksi yang dilarang dalam Islam karena dapat merugikan salah satu pihak."}, {"term": "Halal", "definition": "Segala sesuatu yang diperbolehkan menurut syariat Islam."}, {"term": "Haram", "definition": "Segala sesuatu yang dilarang menurut syariat Islam."}, {"term": "Hibah", "definition": "Pemberian harta kepada orang lain secara sukarela tanpa mengharapkan imbalan."}, {"term": "Inflasi", "definition": "Kenaikan harga barang dan jasa secara umum yang menyebabkan daya beli uang menurun."}, {"term": "Investasi", "definition": "Penempatan dana atau aset pada instrumen yang halal dengan harapan memperoleh keuntungan di masa depan."}, {"term": "Investasi Syariah", "definition": "Investasi yang dilakukan sesuai prinsip syariah dan tidak mengandung riba, gharar, maupun maysir."}, {"term": "Investasi Bodong", "definition": "Penawaran investasi yang tidak memiliki izin, menjanjikan keuntungan tidak wajar, tidak transparan, atau menggunakan cara-cara yang menyesatkan sehingga berpotensi merugikan masyarakat."}, {"term": "Jual Beli", "definition": "Kegiatan pertukaran barang atau jasa dengan sejumlah uang berdasarkan kesepakatan kedua belah pihak."}, {"term": "Kebutuhan", "definition": "Barang atau jasa yang harus dipenuhi agar kehidupan berjalan dengan baik."}, {"term": "Keinginan", "definition": "Sesuatu yang ingin dimiliki, tetapi tidak harus dipenuhi."}, {"term": "Keuangan Syariah", "definition": "Sistem pengelolaan keuangan yang berlandaskan Al-Qur'an, Hadis, serta prinsip-prinsip syariah."}, {"term": "Kewirausahaan", "definition": "Kemampuan menciptakan dan mengembangkan usaha secara kreatif dan inovatif."}, {"term": "Konsumtif", "definition": "Perilaku membeli barang atau jasa secara berlebihan tanpa mempertimbangkan kebutuhan."}, {"term": "Literasi Keuangan", "definition": "Pengetahuan, keterampilan, dan keyakinan untuk mengelola keuangan secara efektif."}, {"term": "Literasi Keuangan Syariah", "definition": "Kemampuan memahami serta menerapkan pengelolaan keuangan sesuai dengan prinsip-prinsip syariah."}, {"term": "Maysir", "definition": "Segala bentuk perjudian atau aktivitas yang mengandung unsur untung-untungan dan dilarang dalam Islam."}, {"term": "Modal", "definition": "Dana atau aset yang digunakan untuk memulai atau mengembangkan suatu usaha."}, {"term": "Multibagger", "definition": "Istilah dalam investasi saham yang menggambarkan kenaikan nilai investasi berkali-kali lipat dari harga awal."}, {"term": "Musibah", "definition": "Peristiwa yang tidak diharapkan dan dapat menyebabkan kerugian, sehingga perlu diantisipasi dengan pengelolaan keuangan yang baik."}, {"term": "Pendapatan", "definition": "Uang atau hasil yang diperoleh dari bekerja, berwirausaha, atau sumber lain yang halal."}, {"term": "Pengeluaran", "definition": "Uang yang digunakan untuk memenuhi kebutuhan atau keinginan."}, {"term": "Perencanaan Keuangan", "definition": "Proses menyusun tujuan serta strategi pengelolaan keuangan agar kebutuhan saat ini dan masa depan dapat terpenuhi."}, {"term": "Pinjaman Online Ilegal", "definition": "Layanan pinjaman berbasis internet yang tidak memiliki izin dari otoritas yang berwenang dan sering menerapkan praktik yang merugikan."}, {"term": "Ponzi", "definition": "Skema penipuan yang membayar keuntungan investor lama menggunakan dana dari investor baru tanpa adanya kegiatan usaha yang nyata."}, {"term": "Profit", "definition": "Keuntungan yang diperoleh dari suatu usaha atau investasi."}, {"term": "QR Code", "definition": "Kode dua dimensi yang dapat dipindai menggunakan kamera telepon pintar untuk mengakses panduan permainan, kartu literasi, dan kartu aksi secara digital."}, {"term": "Riba", "definition": "Tambahan yang disyaratkan dalam transaksi utang piutang atau jual beli tertentu yang dilarang dalam Islam."}, {"term": "Reksa Dana Syariah", "definition": "Wadah penghimpunan dana masyarakat yang dikelola oleh manajer investasi sesuai dengan prinsip syariah."}, {"term": "Rezeki", "definition": "Segala bentuk nikmat yang diberikan oleh Allah SWT, baik berupa harta, ilmu, kesehatan, kesempatan, maupun manfaat lainnya."}, {"term": "Risiko", "definition": "Kemungkinan terjadinya kerugian atau hasil yang tidak sesuai harapan dalam suatu keputusan keuangan."}, {"term": "Saham Syariah", "definition": "Bukti kepemilikan suatu perusahaan yang kegiatan usahanya sesuai dengan prinsip syariah."}, {"term": "Sedekah", "definition": "Pemberian harta atau bantuan secara sukarela kepada orang lain sebagai bentuk ibadah dan kepedulian sosial."}, {"term": "Skema Ponzi", "definition": "Lihat Ponzi."}, {"term": "Sukuk", "definition": "Surat berharga syariah yang diterbitkan berdasarkan akad sesuai prinsip syariah sebagai alternatif investasi."}, {"term": "Tabungan", "definition": "Sejumlah uang yang disisihkan untuk digunakan pada masa yang akan datang."}, {"term": "Tantangan", "definition": "Situasi atau kondisi yang mengharuskan pemain mengambil keputusan finansial dalam permainan."}, {"term": "Transparansi", "definition": "Keterbukaan informasi dalam suatu kegiatan usaha atau investasi sehingga mudah dipahami oleh semua pihak."}, {"term": "UMKM", "definition": "Usaha Mikro, Kecil, dan Menengah, yaitu kelompok usaha produktif yang dimiliki oleh masyarakat dengan skala usaha tertentu."}, {"term": "Usaha Viral", "definition": "Usaha yang berkembang pesat karena dikenal luas oleh masyarakat melalui media sosial atau promosi dari pelanggan."}, {"term": "Warisan", "definition": "Harta peninggalan seseorang yang telah meninggal dunia dan dibagikan kepada ahli waris sesuai dengan ketentuan hukum yang berlaku, termasuk hukum waris Islam apabila diterapkan."}, {"term": "Wakaf", "definition": "Perbuatan hukum seseorang untuk memisahkan atau menyerahkan sebagian harta miliknya agar dimanfaatkan bagi kepentingan ibadah atau kesejahteraan umum sesuai dengan syariat Islam."}, {"term": "Zakat", "definition": "Kewajiban bagi setiap muslim yang telah memenuhi syarat untuk mengeluarkan sebagian hartanya kepada golongan yang berhak menerima sesuai ketentuan syariat Islam."}];
 
 let state = {
-  screen: "home",           // home | literasi-play | aksi-play | ut-menu | ut-ladder-list | ut-snake-list | ut-ladder-detail | ut-snake-detail
+  screen: "home",           // home | literasi-play | aksi-play | ut-menu | ut-ladder-list | ut-snake-list | ut-ladder-detail | ut-snake-detail | panduan | dadu-permainan
   category: null,
   cardIndex: null,
   selectedOption: null,
@@ -686,6 +779,11 @@ let state = {
   diceValue: null,
   diceRolling: false,
   showDiceTable: false,
+  // --- state for "Dadu Permainan" (board-movement dice) — kept fully separate from Kartu Aksi dice state above ---
+  gameDiceMode: null,        // "1" | "2" | null
+  gameDiceResult: null,      // { d1, d2 (optional), total, isTwin }
+  gameDiceHistory: [],       // array of { d1, d2 (optional), total }
+  gameDiceRolling: false,
 };
 
 const app = document.getElementById("app");
@@ -734,6 +832,46 @@ function openLadder(index){
 function openSnake(index){
   state.screen = "ut-snake-detail";
   state.utIndex = index;
+  render();
+}
+
+/* ---- Dadu Permainan navigation & logic (independent from Kartu Aksi dice) ---- */
+function goDadu(){
+  state.screen = "dadu-permainan";
+  render();
+}
+
+function selectGameDiceMode(mode){
+  state.gameDiceMode = mode;
+  state.gameDiceResult = null;
+  render();
+}
+
+function rollGameDice(){
+  if(state.gameDiceRolling || !state.gameDiceMode) return;
+  state.gameDiceRolling = true;
+  state.gameDiceResult = null;
+  render();
+  setTimeout(()=>{
+    let result;
+    if(state.gameDiceMode === "1"){
+      const d1 = 1 + Math.floor(Math.random()*6);
+      result = { d1, total: d1, isTwin:false };
+    } else {
+      const d1 = 1 + Math.floor(Math.random()*6);
+      const d2 = 1 + Math.floor(Math.random()*6);
+      result = { d1, d2, total: d1+d2, isTwin: d1===d2 };
+    }
+    state.gameDiceResult = result;
+    state.gameDiceHistory.unshift(result);
+    if(state.gameDiceHistory.length > 5) state.gameDiceHistory.length = 5;
+    state.gameDiceRolling = false;
+    render();
+  }, 850);
+}
+
+function clearGameDiceHistory(){
+  state.gameDiceHistory = [];
   render();
 }
 
@@ -884,10 +1022,16 @@ function renderHome(){
     <div class="panel">
       <div class="hero">
         <div class="kicker">Board Game Edukasi Literasi Keuangan Syariah</div>
-        <h2>Pilih jenis kartu untuk dimainkan</h2>
-        <p>Pemain berhenti di petak hijau atau kuning pada papan, lalu membuka kartu digital yang sesuai di sini.</p>
+        <h2>Selamat datang di Jejak Finansial Santri!</h2>
+        <p>Sebelum mulai, pastikan Anda membaca Panduan Bermain terlebih dahulu. Setelah itu, lempar dadu Anda, ikuti langkah bidak di papan, dan pilih kartu digital di bawah ini untuk menguji literasi atau mengambil keputusan aksi. Saat menginjak petak Ular & Tangga, pelajari hikmahnya.</p>
       </div>
       <div class="choice-grid">
+        <div class="choice-card dadu" onclick="goDadu()">
+          <span class="cc-icon">🎲</span>
+          <h3>Dadu Permainan</h3>
+          <p>Lempar satu atau dua dadu untuk menentukan jumlah langkah pion.</p>
+          <span class="cc-count">1 atau 2 dadu</span>
+        </div>
         <div class="choice-card literasi" onclick="startLiterasi()">
           <span class="cc-icon">📚</span>
           <h3>Kartu Literasi</h3>
@@ -1118,6 +1262,13 @@ function renderPanduan(){
             <li>Ikuti instruksi berdasarkan petak tempat pion berhenti.</li>
           </ul>
         </div>
+        <div class="pb-step">
+          <div class="pb-step-title">🎲 Menyepakati Mode Dadu</div>
+          <p class="pb-p">Sebelum permainan dimulai, seluruh pemain menyepakati penggunaan satu dadu atau dua dadu. Jika menggunakan satu dadu, pion bergerak sesuai angka yang muncul. Jika menggunakan dua dadu, kedua angka dijumlahkan dan pion bergerak sesuai totalnya. Mode satu dadu menghasilkan permainan yang lebih panjang, sedangkan mode dua dadu membuat permainan berlangsung lebih cepat. Mode yang dipilih sebaiknya digunakan secara konsisten hingga permainan berakhir.</p>
+          <div class="btn-row" style="margin-top:12px;">
+            <button class="btn btn-gold" onclick="goDadu()">🎲 Buka Menu Dadu Permainan</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1264,6 +1415,7 @@ function renderPanduan(){
       <div class="pb-subcard-title" style="margin-bottom:10px;">💻 Menu Website</div>
       <p class="pb-p">Website Jejak Finansial Santri terdiri dari beberapa menu utama:</p>
       <div class="pb-menu-list">
+        <div class="pb-menu-item"><span class="pb-menu-icon">🎲</span><span><b>Dadu Permainan</b> → Melempar satu atau dua dadu digital untuk menentukan jumlah langkah pion pada papan permainan.</span></div>
         <div class="pb-menu-item"><span class="pb-menu-icon">📖</span><span><b>Kartu Literasi</b> → Menguji pemahaman literasi keuangan syariah melalui soal pilihan ganda.</span></div>
         <div class="pb-menu-item"><span class="pb-menu-icon">🃏</span><span><b>Kartu Aksi</b> → Menyajikan simulasi situasi nyata yang melatih pengambilan keputusan dan menggunakan dadu digital pada kategori tertentu.</span></div>
         <div class="pb-menu-item"><span class="pb-menu-icon">🐍🪜</span><span><b>Ular & Tangga</b> → Menampilkan cerita, hikmah, dan pelajaran dari setiap tangga dan ular pada papan permainan.</span></div>
@@ -1274,6 +1426,119 @@ function renderPanduan(){
 
     <div class="btn-row" style="justify-content:center; margin-top:4px;">
       <button class="btn btn-ghost" onclick="goHome()">← Kembali ke Beranda</button>
+    </div>
+  `;
+}
+
+function renderGameDice(){
+  const mode = state.gameDiceMode;
+  const rolling = state.gameDiceRolling;
+  const result = state.gameDiceResult;
+
+  const modeSelectHTML = `
+    <div class="gd-mode-grid">
+      <div class="gd-mode-card ${mode==='1' ? 'active' : ''}" onclick="selectGameDiceMode('1')">
+        <span class="gd-mode-icon">🎲</span>
+        <h3>1 Dadu</h3>
+        <p>Hasil 1–6 langkah. Cocok untuk permainan edukasi dengan durasi lebih panjang.</p>
+        <div class="gd-active-tag">✓ Mode Dipilih</div>
+      </div>
+      <div class="gd-mode-card ${mode==='2' ? 'active' : ''}" onclick="selectGameDiceMode('2')">
+        <span class="gd-mode-icon">🎲🎲</span>
+        <h3>2 Dadu</h3>
+        <p>Hasil kedua dadu dijumlahkan. Total langkah 2–12. Cocok untuk permainan dengan durasi lebih cepat.</p>
+        <div class="gd-active-tag">✓ Mode Dipilih</div>
+      </div>
+    </div>
+  `;
+
+  let stageHTML = "";
+  if(mode){
+    let diceFacesHTML = "";
+    let statusText = "";
+    let totalHTML = "";
+    let instructionHTML = "";
+    let twinHTML = "";
+
+    if(rolling){
+      statusText = "Mengocok dadu...";
+      if(mode === "1"){
+        diceFacesHTML = `<div class="gd-die rolling">?</div>`;
+      } else {
+        diceFacesHTML = `<div class="gd-die rolling">?</div><span class="gd-plus">+</span><div class="gd-die rolling">?</div>`;
+      }
+    } else if(result){
+      if(mode === "1"){
+        diceFacesHTML = `<div class="gd-die">${result.d1}</div>`;
+        instructionHTML = `<div class="gd-instruction">Majukan pion sebanyak ${result.total} petak.</div>`;
+      } else {
+        diceFacesHTML = `<div class="gd-die">${result.d1}</div><span class="gd-plus">+</span><div class="gd-die">${result.d2}</div>`;
+        totalHTML = `<div class="gd-total">Total: ${result.total}</div>`;
+        instructionHTML = `<div class="gd-instruction">Majukan pion sebanyak ${result.total} petak.</div>`;
+        if(result.isTwin){
+          twinHTML = `<div class="gd-twin-badge">🎉 Dadu Kembar!</div>`;
+        }
+      }
+    } else {
+      statusText = mode === "1" ? "Tekan tombol untuk melempar dadu." : "Tekan tombol untuk melempar kedua dadu.";
+      diceFacesHTML = mode === "1"
+        ? `<div class="gd-die">🎲</div>`
+        : `<div class="gd-die">🎲</div><span class="gd-plus">+</span><div class="gd-die">🎲</div>`;
+    }
+
+    stageHTML = `
+      <div class="gd-stage">
+        <div class="gd-mode-label">Mode: ${mode === "1" ? "1 Dadu" : "2 Dadu"}</div>
+        <div class="gd-dice-row">${diceFacesHTML}</div>
+        ${totalHTML}
+        ${statusText ? `<div class="gd-status-text">${statusText}</div>` : ""}
+        ${instructionHTML}
+        ${twinHTML}
+        <div class="gd-roll-btn-wrap">
+          <button class="btn btn-primary" onclick="rollGameDice()" ${rolling ? "disabled" : ""}>
+            ${mode === "1" ? "🎲 Lempar 1 Dadu" : "🎲🎲 Lempar 2 Dadu"}
+          </button>
+        </div>
+      </div>
+
+      <div class="gd-history">
+        <div class="gd-history-title">
+          <span>📜 Riwayat Lemparan</span>
+          ${state.gameDiceHistory.length > 0 ? `<button class="gd-history-clear" onclick="clearGameDiceHistory()">Hapus Riwayat</button>` : ""}
+        </div>
+        <div class="gd-history-list">
+          ${state.gameDiceHistory.length === 0
+            ? `<div class="gd-history-empty">Belum ada lemparan pada sesi ini.</div>`
+            : state.gameDiceHistory.map((h,i)=>`
+                <div class="gd-history-row">
+                  <span class="gd-history-num">${i+1}</span>
+                  <span>${h.d2 !== undefined ? `${h.d1} + ${h.d2} = ${h.total} langkah` : `${h.total} langkah`}</span>
+                </div>
+              `).join("")
+          }
+        </div>
+      </div>
+    `;
+  }
+
+  app.innerHTML = `
+    ${topbarHTML(true, "goHome()", "Dadu Permainan")}
+    <div class="panel">
+      <div class="mode-title"><span class="mi">🎲</span><h2>Dadu Permainan</h2></div>
+      <div class="mode-sub">Menentukan langkah pion di papan permainan</div>
+
+      <div class="pb-p" style="margin-bottom:0;">Pilih Mode Dadu</div>
+      ${modeSelectHTML}
+      ${stageHTML}
+
+      <div class="pb-section" style="box-shadow:none; border:1.5px solid rgba(13,45,31,0.08); padding:18px 18px; margin-top:22px; margin-bottom:0;">
+        <div class="pb-section-head" style="margin-bottom:8px;"><span class="pb-emoji">ℹ️</span><h2 style="font-size:15px;">Cara Menggunakan</h2></div>
+        <p class="pb-p">Pilih mode satu dadu atau dua dadu sebelum bermain. Pada mode satu dadu, pion bergerak sesuai angka yang muncul. Pada mode dua dadu, kedua angka dijumlahkan dan pion bergerak sesuai totalnya. Gunakan satu mode yang sama selama permainan agar aturan berlaku konsisten bagi seluruh pemain.</p>
+        <div class="pb-info-strip">
+          <span class="pb-info-chip">🎲 1 Dadu: permainan lebih panjang &amp; edukatif</span>
+          <span class="pb-info-chip">🎲🎲 2 Dadu: permainan lebih cepat</span>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -1488,6 +1753,7 @@ function render(){
   else if(state.screen === "ut-ladder-detail") renderLadderDetail();
   else if(state.screen === "ut-snake-detail") renderSnakeDetail();
   else if(state.screen === "panduan") renderPanduan();
+  else if(state.screen === "dadu-permainan") renderGameDice();
 }
 
 render();
