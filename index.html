@@ -681,6 +681,106 @@
     font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:0 0 auto;
   }
   .gd-history-empty{ font-size:12.5px; color:var(--ink-soft); font-style:italic; text-align:center; padding:8px 0; }
+
+  /* ---------- Main Digital ---------- */
+  .app.wide-mode{ max-width:1080px; }
+
+  .choice-card.maindigital{
+    background:linear-gradient(155deg, #3E7CA6, #123C29);
+  }
+
+  .md-setup-row{ margin-bottom:18px; }
+  .md-setup-label{ font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--gold-600); margin-bottom:8px; }
+  .md-num-players{ display:flex; gap:8px; flex-wrap:wrap; }
+  .md-num-btn{
+    border:2px solid rgba(13,45,31,0.12); background:var(--paper); cursor:pointer;
+    width:44px; height:44px; border-radius:12px; font-family:'Fraunces',serif; font-weight:700; font-size:16px;
+    color:var(--ink); transition:all .15s ease;
+  }
+  .md-num-btn.active{ background:var(--green-800); color:#fff; border-color:var(--green-800); }
+
+  .md-player-row{
+    display:flex; flex-wrap:wrap; align-items:center; gap:10px;
+    background:var(--cream); border-radius:14px; padding:12px 14px; margin-bottom:10px;
+  }
+  .md-player-input{
+    flex:1 1 140px; min-width:120px; padding:9px 12px; border-radius:10px;
+    border:1.5px solid rgba(13,45,31,0.15); font-family:'Inter',sans-serif; font-size:13px;
+    background:var(--paper); color:var(--ink);
+  }
+  .md-color-swatches{ display:flex; gap:5px; flex-wrap:wrap; }
+  .md-color-btn{
+    width:30px; height:30px; border-radius:50%; border:2px solid transparent;
+    background:var(--paper); cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center;
+    transition:transform .12s ease;
+  }
+  .md-color-btn.selected{ border-color:var(--green-900); transform:scale(1.12); }
+
+  .md-layout{ display:flex; gap:18px; align-items:flex-start; }
+  .md-board-col{ flex:1 1 460px; min-width:0; }
+  .md-panel-col{ flex:1 1 260px; min-width:240px; }
+  @media (max-width:820px){ .md-layout{ flex-direction:column; } .md-panel-col{ width:100%; } }
+
+  .md-board{
+    display:grid; grid-template-columns:repeat(10,1fr); grid-template-rows:repeat(10,1fr);
+    aspect-ratio:1/1; gap:1px; background:var(--green-900); border-radius:14px;
+    overflow:hidden; border:3px solid var(--green-900); box-shadow:var(--shadow);
+  }
+  .md-cell{
+    position:relative; background:var(--paper); display:flex; flex-direction:column;
+    align-items:center; justify-content:center; overflow:hidden;
+  }
+  .md-cell-green{ background:var(--maju-bg); }
+  .md-cell-yellow{ background:var(--gold-100); }
+  .md-cell-ladder{ background:#DCEEDC; }
+  .md-cell-snake{ background:var(--mundur-bg); }
+  .md-cell-start{ background:var(--green-700); }
+  .md-cell-finish{ background:var(--gold-500); }
+  .md-cell-num{ font-size:6.5px; position:absolute; top:1px; left:2px; opacity:.6; font-weight:700; color:var(--ink); }
+  .md-cell-icon{ font-size:11px; line-height:1; }
+  .md-pawns{ position:absolute; bottom:0px; display:flex; gap:0px; justify-content:center; width:100%; }
+  .md-pawn{ font-size:9px; line-height:1; filter:drop-shadow(0 1px 1px rgba(0,0,0,0.3)); }
+
+  .md-panel-card{
+    background:var(--paper); border-radius:16px; padding:14px 15px; margin-bottom:12px; box-shadow:var(--shadow);
+  }
+  .md-panel-title{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--gold-600); margin-bottom:10px; }
+  .md-turn-banner{
+    display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px;
+    background:var(--green-900); color:#fff; margin-bottom:12px;
+  }
+  .md-turn-dot{ width:16px; height:16px; border-radius:50%; flex:0 0 auto; }
+  .md-turn-text{ font-size:13px; font-weight:700; }
+  .md-turn-sub{ font-size:11px; color:var(--gold-300); }
+
+  .md-player-list{ display:flex; flex-direction:column; gap:6px; }
+  .md-player-item{
+    display:flex; align-items:center; gap:8px; padding:7px 9px; border-radius:10px; background:var(--cream);
+    font-size:12.5px;
+  }
+  .md-player-item.current{ background:var(--gold-100); border:1.5px solid var(--gold-500); }
+  .md-player-item .md-dot{ width:12px; height:12px; border-radius:50%; flex:0 0 auto; }
+  .md-player-item .md-player-name{ font-weight:700; flex:1; color:var(--ink); }
+  .md-player-item .md-player-pos{ font-size:11px; color:var(--ink-soft); }
+  .md-player-item.finished .md-player-name::after{ content:" 🏆"; }
+
+  .md-history-list{ display:flex; flex-direction:column; gap:5px; max-height:220px; overflow-y:auto; }
+  .md-history-row{ font-size:11.5px; color:var(--ink-soft); padding:5px 8px; background:var(--cream); border-radius:8px; }
+
+  .md-popup-backdrop{
+    position:fixed; inset:0; background:rgba(13,45,31,0.55); z-index:80;
+    display:flex; align-items:center; justify-content:center; padding:16px;
+  }
+  .md-popup-card{
+    background:var(--paper); border-radius:20px; padding:22px 20px; max-width:420px; width:100%;
+    max-height:86vh; overflow-y:auto; box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+    animation:dealIn .25s ease;
+  }
+  .md-popup-header{ text-align:center; margin-bottom:14px; }
+  .md-popup-header .md-popup-emoji{ font-size:34px; display:block; margin-bottom:6px; }
+  .md-popup-header h3{ font-size:17px; color:var(--green-900); }
+
+  .md-note{ font-size:11px; color:var(--ink-soft); font-style:italic; margin-top:10px; text-align:center; }
 </style>
 </head>
 <body>
@@ -770,8 +870,72 @@ const SNAKE_DATA = [
 
 const GLOSSARY_DATA = [{"term": "Aset", "definition": "Segala sesuatu yang dimiliki dan memiliki nilai ekonomi, seperti uang, emas, tabungan, atau usaha yang dapat memberikan manfaat di masa depan."}, {"term": "Anggaran (Budget)", "definition": "Rencana pengeluaran dan pemasukan yang disusun untuk mengelola keuangan secara teratur."}, {"term": "Beasiswa", "definition": "Bantuan biaya pendidikan yang diberikan kepada peserta didik berdasarkan prestasi, kebutuhan, atau persyaratan tertentu."}, {"term": "Bagi Hasil", "definition": "Sistem pembagian keuntungan dalam akad syariah berdasarkan kesepakatan antara para pihak yang bekerja sama."}, {"term": "Bisnis", "definition": "Kegiatan menghasilkan barang atau jasa dengan tujuan memperoleh keuntungan yang halal."}, {"term": "Bullying Finansial", "definition": "Tekanan dari lingkungan yang mendorong seseorang mengeluarkan uang agar diterima dalam pergaulan, meskipun tidak sesuai dengan kemampuan keuangan."}, {"term": "Dana Darurat", "definition": "Sejumlah uang yang disiapkan untuk menghadapi kebutuhan mendesak atau keadaan tidak terduga."}, {"term": "Diversifikasi", "definition": "Strategi menyebarkan investasi ke beberapa instrumen agar risiko kerugian tidak terpusat pada satu jenis investasi."}, {"term": "Edukasi Keuangan", "definition": "Proses belajar untuk memahami cara memperoleh, mengelola, menggunakan, dan mengembangkan keuangan secara bijak."}, {"term": "Financial Freedom (Kemandirian Finansial)", "definition": "Keadaan ketika seseorang mampu memenuhi kebutuhan hidup melalui pengelolaan keuangan yang baik tanpa bergantung pada utang yang berlebihan, serta tetap menjalankan prinsip-prinsip syariah."}, {"term": "FOMO (Fear of Missing Out)", "definition": "Perasaan takut ketinggalan tren sehingga membuat seseorang mengambil keputusan keuangan secara terburu-buru tanpa pertimbangan yang matang."}, {"term": "Gharar", "definition": "Ketidakjelasan atau ketidakpastian dalam suatu transaksi yang dilarang dalam Islam karena dapat merugikan salah satu pihak."}, {"term": "Halal", "definition": "Segala sesuatu yang diperbolehkan menurut syariat Islam."}, {"term": "Haram", "definition": "Segala sesuatu yang dilarang menurut syariat Islam."}, {"term": "Hibah", "definition": "Pemberian harta kepada orang lain secara sukarela tanpa mengharapkan imbalan."}, {"term": "Inflasi", "definition": "Kenaikan harga barang dan jasa secara umum yang menyebabkan daya beli uang menurun."}, {"term": "Investasi", "definition": "Penempatan dana atau aset pada instrumen yang halal dengan harapan memperoleh keuntungan di masa depan."}, {"term": "Investasi Syariah", "definition": "Investasi yang dilakukan sesuai prinsip syariah dan tidak mengandung riba, gharar, maupun maysir."}, {"term": "Investasi Bodong", "definition": "Penawaran investasi yang tidak memiliki izin, menjanjikan keuntungan tidak wajar, tidak transparan, atau menggunakan cara-cara yang menyesatkan sehingga berpotensi merugikan masyarakat."}, {"term": "Jual Beli", "definition": "Kegiatan pertukaran barang atau jasa dengan sejumlah uang berdasarkan kesepakatan kedua belah pihak."}, {"term": "Kebutuhan", "definition": "Barang atau jasa yang harus dipenuhi agar kehidupan berjalan dengan baik."}, {"term": "Keinginan", "definition": "Sesuatu yang ingin dimiliki, tetapi tidak harus dipenuhi."}, {"term": "Keuangan Syariah", "definition": "Sistem pengelolaan keuangan yang berlandaskan Al-Qur'an, Hadis, serta prinsip-prinsip syariah."}, {"term": "Kewirausahaan", "definition": "Kemampuan menciptakan dan mengembangkan usaha secara kreatif dan inovatif."}, {"term": "Konsumtif", "definition": "Perilaku membeli barang atau jasa secara berlebihan tanpa mempertimbangkan kebutuhan."}, {"term": "Literasi Keuangan", "definition": "Pengetahuan, keterampilan, dan keyakinan untuk mengelola keuangan secara efektif."}, {"term": "Literasi Keuangan Syariah", "definition": "Kemampuan memahami serta menerapkan pengelolaan keuangan sesuai dengan prinsip-prinsip syariah."}, {"term": "Maysir", "definition": "Segala bentuk perjudian atau aktivitas yang mengandung unsur untung-untungan dan dilarang dalam Islam."}, {"term": "Modal", "definition": "Dana atau aset yang digunakan untuk memulai atau mengembangkan suatu usaha."}, {"term": "Multibagger", "definition": "Istilah dalam investasi saham yang menggambarkan kenaikan nilai investasi berkali-kali lipat dari harga awal."}, {"term": "Musibah", "definition": "Peristiwa yang tidak diharapkan dan dapat menyebabkan kerugian, sehingga perlu diantisipasi dengan pengelolaan keuangan yang baik."}, {"term": "Pendapatan", "definition": "Uang atau hasil yang diperoleh dari bekerja, berwirausaha, atau sumber lain yang halal."}, {"term": "Pengeluaran", "definition": "Uang yang digunakan untuk memenuhi kebutuhan atau keinginan."}, {"term": "Perencanaan Keuangan", "definition": "Proses menyusun tujuan serta strategi pengelolaan keuangan agar kebutuhan saat ini dan masa depan dapat terpenuhi."}, {"term": "Pinjaman Online Ilegal", "definition": "Layanan pinjaman berbasis internet yang tidak memiliki izin dari otoritas yang berwenang dan sering menerapkan praktik yang merugikan."}, {"term": "Ponzi", "definition": "Skema penipuan yang membayar keuntungan investor lama menggunakan dana dari investor baru tanpa adanya kegiatan usaha yang nyata."}, {"term": "Profit", "definition": "Keuntungan yang diperoleh dari suatu usaha atau investasi."}, {"term": "QR Code", "definition": "Kode dua dimensi yang dapat dipindai menggunakan kamera telepon pintar untuk mengakses panduan permainan, kartu literasi, dan kartu aksi secara digital."}, {"term": "Riba", "definition": "Tambahan yang disyaratkan dalam transaksi utang piutang atau jual beli tertentu yang dilarang dalam Islam."}, {"term": "Reksa Dana Syariah", "definition": "Wadah penghimpunan dana masyarakat yang dikelola oleh manajer investasi sesuai dengan prinsip syariah."}, {"term": "Rezeki", "definition": "Segala bentuk nikmat yang diberikan oleh Allah SWT, baik berupa harta, ilmu, kesehatan, kesempatan, maupun manfaat lainnya."}, {"term": "Risiko", "definition": "Kemungkinan terjadinya kerugian atau hasil yang tidak sesuai harapan dalam suatu keputusan keuangan."}, {"term": "Saham Syariah", "definition": "Bukti kepemilikan suatu perusahaan yang kegiatan usahanya sesuai dengan prinsip syariah."}, {"term": "Sedekah", "definition": "Pemberian harta atau bantuan secara sukarela kepada orang lain sebagai bentuk ibadah dan kepedulian sosial."}, {"term": "Skema Ponzi", "definition": "Lihat Ponzi."}, {"term": "Sukuk", "definition": "Surat berharga syariah yang diterbitkan berdasarkan akad sesuai prinsip syariah sebagai alternatif investasi."}, {"term": "Tabungan", "definition": "Sejumlah uang yang disisihkan untuk digunakan pada masa yang akan datang."}, {"term": "Tantangan", "definition": "Situasi atau kondisi yang mengharuskan pemain mengambil keputusan finansial dalam permainan."}, {"term": "Transparansi", "definition": "Keterbukaan informasi dalam suatu kegiatan usaha atau investasi sehingga mudah dipahami oleh semua pihak."}, {"term": "UMKM", "definition": "Usaha Mikro, Kecil, dan Menengah, yaitu kelompok usaha produktif yang dimiliki oleh masyarakat dengan skala usaha tertentu."}, {"term": "Usaha Viral", "definition": "Usaha yang berkembang pesat karena dikenal luas oleh masyarakat melalui media sosial atau promosi dari pelanggan."}, {"term": "Warisan", "definition": "Harta peninggalan seseorang yang telah meninggal dunia dan dibagikan kepada ahli waris sesuai dengan ketentuan hukum yang berlaku, termasuk hukum waris Islam apabila diterapkan."}, {"term": "Wakaf", "definition": "Perbuatan hukum seseorang untuk memisahkan atau menyerahkan sebagian harta miliknya agar dimanfaatkan bagi kepentingan ibadah atau kesejahteraan umum sesuai dengan syariat Islam."}, {"term": "Zakat", "definition": "Kewajiban bagi setiap muslim yang telah memenuhi syarat untuk mengeluarkan sebagian hartanya kepada golongan yang berhak menerima sesuai ketentuan syariat Islam."}];
 
+/* ============== MAIN DIGITAL — numeric card-effect derivation ==============
+   Adds a numeric `effect` value onto the EXISTING LITERASI_DATA / AKSI_DATA
+   objects, in-place, ADDITIVELY — no existing field (question/options/answer/
+   steps/situasi/ranking/kejadian/hasil/table_source/...) is removed, renamed,
+   or altered. Every other menu (Kartu Literasi, Kartu Aksi) keeps reading the
+   exact same fields it always has and is completely unaffected.
+   This runs ONCE, right after the data is declared — so all runtime game
+   logic in Main Digital reads a plain numeric field and never parses text
+   like "Maju 5 langkah" while the game is being played. */
+
+// Literasi: each option gets an explicit numeric effect — the correct letter
+// gets +steps, every other letter gets -steps (matches the existing physical
+// game rule already used elsewhere on this site: benar → maju sesuai
+// kesulitan, salah → mundur sesuai kesulitan).
+LITERASI_DATA.forEach(card=>{
+  card.effects = {};
+  ["A","B","C","D"].forEach(letter=>{
+    card.effects[letter] = (letter === card.answer) ? card.steps : -card.steps;
+  });
+});
+
+// Kartu Aksi — ranking-type categories (Keputusan Finansial, Sedekah, Tantangan):
+// position in the "ranking" array (best→worst) maps to a fixed numeric scale.
+const AKSI_RANKING_EFFECT_SCALE = [3, 2, 1, -1]; // best, 2nd, 3rd, worst
+Object.values(AKSI_DATA).forEach(cat=>{
+  if(cat.type === "ranking"){
+    cat.cards.forEach(card=>{
+      card.effects = {};
+      card.ranking.forEach((letter, pos)=>{ card.effects[letter] = AKSI_RANKING_EFFECT_SCALE[pos]; });
+    });
+  }
+});
+
+// Kartu Aksi — dice-type categories (Peluang Bisnis, Investasi, Rezeki, Musibah):
+// explicit numeric value per dice face, taken directly from the same source
+// data each table's "hasil" text already describes (written out as numbers
+// once here, not parsed from the text at runtime).
+const AKSI_DICE_EFFECT_MAP = {
+  "Peluang Bisnis": { 1:-2, 2:1, 3:2, 4:3, 5:4, 6:5 },
+  "Investasi":      { 1:-2, 2:1, 3:2, 4:3, 5:4, 6:5 },
+  "Rezeki":         { 1:1,  2:2, 3:3, 4:4, 5:5, 6:6 },
+  "Musibah":        { 1:-1, 2:-2, 3:-3, 4:-4, 5:-5, 6:-1 },
+};
+Object.keys(AKSI_DICE_EFFECT_MAP).forEach(catName=>{
+  const cat = AKSI_DATA[catName];
+  if(!cat) return;
+  Object.keys(cat.table).forEach(diceKey=>{
+    cat.table[diceKey].effect = AKSI_DICE_EFFECT_MAP[catName][diceKey];
+  });
+});
+
+/* ============== MAIN DIGITAL — derived data & palette ==============
+   Reuses LITERASI_DATA, AKSI_DATA, LADDER_DATA, SNAKE_DATA as-is. No duplicate data created. */
+const LADDER_MAP = Object.fromEntries(LADDER_DATA.map(l => [l.from, l]));
+const SNAKE_MAP  = Object.fromEntries(SNAKE_DATA.map(s => [s.from, s]));
+const MD_COLOR_PALETTE = [
+  { key:"red",    emoji:"🔴", hex:"#D64545" },
+  { key:"blue",   emoji:"🔵", hex:"#3B7DD8" },
+  { key:"green",  emoji:"🟢", hex:"#3FA34D" },
+  { key:"yellow", emoji:"🟡", hex:"#D9A62C" },
+  { key:"purple", emoji:"🟣", hex:"#8E5FC7" },
+  { key:"orange", emoji:"🟠", hex:"#E8873A" },
+];
+
 let state = {
-  screen: "home",           // home | literasi-play | aksi-play | ut-menu | ut-ladder-list | ut-snake-list | ut-ladder-detail | ut-snake-detail | panduan | dadu-permainan
+  screen: "home",           // home | literasi-play | aksi-play | ut-menu | ut-ladder-list | ut-snake-list | ut-ladder-detail | ut-snake-detail | panduan | dadu-permainan | main-digital
   category: null,
   cardIndex: null,
   selectedOption: null,
@@ -784,6 +948,22 @@ let state = {
   gameDiceResult: null,      // { d1, d2 (optional), total, isTwin }
   gameDiceHistory: [],       // array of { d1, d2 (optional), total }
   gameDiceRolling: false,
+  // --- state for "Main Digital" (full digital board game) — fully separate from every other feature's state ---
+  md: {
+    phase: "setup",          // setup | playing | finished
+    numPlayers: 2,
+    names: ["","","","","",""],
+    colors: ["red","blue","green","yellow","purple","orange"],
+    diceMode: "1",
+    players: [],             // { name, colorKey, emoji, hex, position, turns, literasiCount, aksiCount, ladderCount, snakeCount, finished }
+    currentPlayerIndex: 0,
+    history: [],
+    rolling: false,
+    lastRoll: null,
+    moving: false,
+    popup: null,              // { type: 'literasi'|'aksi'|'ladder'|'snake', ...payload }
+    winner: null,
+  },
 };
 
 const app = document.getElementById("app");
@@ -872,6 +1052,358 @@ function rollGameDice(){
 
 function clearGameDiceHistory(){
   state.gameDiceHistory = [];
+  render();
+}
+
+/* ================= MAIN DIGITAL — core game logic =================
+   Function names are prefixed "md" to avoid colliding with existing globals
+   (e.g. the Kartu Aksi feature already defines a global rollDice()).
+   This feature reuses LITERASI_DATA / AKSI_DATA / LADDER_DATA / SNAKE_DATA
+   as-is via LADDER_MAP / SNAKE_MAP declared above — no card data is duplicated. */
+
+function goMainDigital(){
+  state.screen = "main-digital";
+  render();
+}
+
+function mdCellColor(n){
+  // Deterministic green/yellow approximation for ordinary (non ladder/snake/start/finish) cells.
+  return (n % 2 === 0) ? "green" : "yellow";
+}
+
+function mdCellType(n){
+  if(n === 1) return "start";
+  if(n === 100) return "finish";
+  if(LADDER_MAP[n]) return "ladder";
+  if(SNAKE_MAP[n]) return "snake";
+  return mdCellColor(n);
+}
+
+function mdSetNumPlayers(n){
+  state.md.numPlayers = n;
+  render();
+}
+
+function mdSetPlayerName(i, val){
+  // Intentionally does NOT call render() — re-rendering on every keystroke would
+  // rebuild the input and steal focus. The value is simply captured into state.
+  state.md.names[i] = val;
+}
+
+function mdAssignColor(i, colorKey){
+  const idx = state.md.colors.findIndex((c, j) => c === colorKey && j < state.md.numPlayers && j !== i);
+  if(idx > -1){
+    const tmp = state.md.colors[i];
+    state.md.colors[i] = state.md.colors[idx];
+    state.md.colors[idx] = tmp;
+  } else {
+    state.md.colors[i] = colorKey;
+  }
+  render();
+}
+
+function mdSetDiceMode(mode){
+  state.md.diceMode = mode;
+  render();
+}
+
+function mdCreatePlayers(){
+  const players = [];
+  for(let i = 0; i < state.md.numPlayers; i++){
+    const colorKey = state.md.colors[i];
+    const palette = MD_COLOR_PALETTE.find(c => c.key === colorKey);
+    players.push({
+      name: (state.md.names[i] || "").trim() || `Pemain ${i+1}`,
+      colorKey, emoji: palette.emoji, hex: palette.hex,
+      position: 1, turns: 0,
+      literasiCount: 0, aksiCount: 0, ladderCount: 0, snakeCount: 0,
+      finished: false,
+    });
+  }
+  return players;
+}
+
+function mdStartGame(){
+  state.md.players = mdCreatePlayers();
+  state.md.currentPlayerIndex = 0;
+  state.md.history = [];
+  state.md.popup = null;
+  state.md.winner = null;
+  state.md.lastRoll = null;
+  state.md.phase = "playing";
+  render();
+}
+
+function mdAddHistory(text){
+  state.md.history.unshift(text);
+  if(state.md.history.length > 8) state.md.history.length = 8;
+}
+
+function mdRollDice(){
+  if(state.md.rolling || state.md.moving || state.md.popup) return;
+  state.md.rolling = true;
+  render();
+  setTimeout(()=>{
+    let rollResult;
+    if(state.md.diceMode === "1"){
+      const d1 = 1 + Math.floor(Math.random()*6);
+      rollResult = { d1, total: d1 };
+    } else {
+      const d1 = 1 + Math.floor(Math.random()*6);
+      const d2 = 1 + Math.floor(Math.random()*6);
+      rollResult = { d1, d2, total: d1+d2 };
+    }
+    state.md.lastRoll = rollResult;
+    state.md.rolling = false;
+    state.md.players[state.md.currentPlayerIndex].turns++; // a "giliran" is counted once per dice roll, not per card-effect movement
+    render();
+    mdMovePawn(rollResult.total);
+  }, 700);
+}
+
+/* Single shared, animated pawn-movement function — used for BOTH the main
+   dice roll AND every card-effect movement (positive = maju, negative =
+   mundur). Moves one petak at a time (same animation either way), then hands
+   off to mdAfterMove() which re-checks the tile the pawn actually landed on.
+   allowCard controls whether landing on an ordinary tile after this move may
+   open a NEW literasi/aksi popup: true for the main dice roll and for the
+   move a ladder/snake produces, false for a card's own effect movement —
+   a card can still send the pawn onto a ladder/snake (which stays fully
+   active), it just can't chain directly into another ordinary card, which
+   would otherwise risk an unbounded popup chain since almost every ordinary
+   tile on the board is a card tile. */
+function mdMovePawn(steps, allowCard){
+  if(allowCard === undefined) allowCard = true;
+  const dir = steps > 0 ? 1 : (steps < 0 ? -1 : 0);
+  if(dir === 0){ mdAfterMove(allowCard); return; }
+  state.md.moving = true;
+  const p = state.md.players[state.md.currentPlayerIndex];
+  let remaining = Math.abs(steps);
+  function tick(){
+    if(remaining <= 0){
+      state.md.moving = false;
+      render();
+      mdAfterMove(allowCard);
+      return;
+    }
+    if(dir > 0) p.position = Math.min(100, p.position + 1);
+    else p.position = Math.max(1, p.position - 1);
+    remaining--;
+    render();
+    if(dir > 0 && p.position >= 100){
+      state.md.moving = false;
+      render();
+      mdFinishGame();
+      return;
+    }
+    setTimeout(tick, 160);
+  }
+  tick();
+}
+
+/* Runs after every pawn movement finishes animating (whether triggered by a
+   dice roll, a ladder/snake, or a card effect) and re-checks whatever tile
+   the pawn is now standing on — this is what lets a bonus move land on a
+   ladder, or a ladder land on another card, etc. */
+function mdAfterMove(allowCard){
+  mdCheckCurrentTile(allowCard);
+}
+
+function mdCheckCurrentTile(allowCard){
+  if(allowCard === undefined) allowCard = true;
+  const p = state.md.players[state.md.currentPlayerIndex];
+  if(p.position >= 100){ mdFinishGame(); return; }
+  if(p.position <= 1){ p.position = 1; mdNextPlayer(); return; } // START tile: never a card/ladder/snake
+  if(mdCheckLadder()) return;
+  if(mdCheckSnake()) return;
+  if(!allowCard){ mdNextPlayer(); return; }
+  const color = mdCellColor(p.position);
+  if(color === "green") mdShowLiterasi();
+  else mdShowAksi();
+}
+
+/* Applies a card's numeric effect (already resolved from data — never parsed
+   from display text) by reusing the exact same movePawn animation as the
+   main dice roll. The resulting move can still trigger a ladder/snake, but
+   (per the note above) will not chain into a second ordinary card. */
+function mdApplyCardEffect(effect){
+  state.md.currentCardEffect = effect;
+  mdMovePawn(effect, false);
+}
+
+/* Returns true if a ladder popup was triggered (and stops further landing logic) */
+function mdCheckLadder(){
+  const p = state.md.players[state.md.currentPlayerIndex];
+  const l = LADDER_MAP[p.position];
+  if(!l) return false;
+  p.ladderCount++;
+  mdAddHistory(`${p.emoji} ${p.name} naik tangga ${l.from} → ${l.to} (${l.title})`);
+  state.md.popup = { type:"ladder", data:l };
+  render();
+  return true;
+}
+
+/* Returns true if a snake popup was triggered (and stops further landing logic) */
+function mdCheckSnake(){
+  const p = state.md.players[state.md.currentPlayerIndex];
+  const s = SNAKE_MAP[p.position];
+  if(!s) return false;
+  p.snakeCount++;
+  mdAddHistory(`${p.emoji} ${p.name} kena ular ${s.from} → ${s.to} (${s.title})`);
+  state.md.popup = { type:"snake", data:s };
+  render();
+  return true;
+}
+
+function mdShowLiterasi(){
+  const p = state.md.players[state.md.currentPlayerIndex];
+  const card = LITERASI_DATA[Math.floor(Math.random()*LITERASI_DATA.length)];
+  p.literasiCount++;
+  mdAddHistory(`${p.emoji} ${p.name} membuka Kartu Literasi`);
+  state.md.popup = { type:"literasi", data:card, selected:null, revealed:false };
+  render();
+}
+
+function mdShowAksi(){
+  const p = state.md.players[state.md.currentPlayerIndex];
+  const catNames = Object.keys(AKSI_DATA);
+  const catName = catNames[Math.floor(Math.random()*catNames.length)];
+  const cat = AKSI_DATA[catName];
+  const card = cat.cards[Math.floor(Math.random()*cat.cards.length)];
+  p.aksiCount++;
+  mdAddHistory(`${p.emoji} ${p.name} membuka Kartu Aksi (${catName})`);
+  state.md.popup = { type:"aksi", catName, cat, card, selected:null, revealed:false, diceValue:null, diceRolling:false };
+  render();
+}
+
+function mdSelectLiterasiOption(letter){
+  if(state.md.popup.revealed) return;
+  state.md.popup.selected = letter;
+  render();
+}
+
+function mdRevealLiterasiAnswer(){
+  state.md.popup.revealed = true;
+  render();
+}
+
+/* Reads the pre-computed numeric card.effects[letter] — never parses text —
+   then closes the popup and lets the shared movePawn/afterMove pipeline
+   handle the animated movement and any chained tile checks. */
+function mdCloseLiterasiPopup(){
+  const pop = state.md.popup;
+  const p = state.md.players[state.md.currentPlayerIndex];
+  let effect = 0;
+  if(pop.revealed && pop.selected){
+    effect = pop.data.effects[pop.selected];
+    mdAddHistory(`${p.emoji} ${p.name} ${effect >= 0 ? "jawaban benar" : "jawaban kurang tepat"} (${effect >= 0 ? "+" : ""}${effect} langkah)`);
+  }
+  state.md.popup = null;
+  render();
+  mdApplyCardEffect(effect);
+}
+
+function mdSelectAksiOption(letter){
+  if(state.md.popup.revealed) return;
+  state.md.popup.selected = letter;
+  render();
+}
+
+function mdRevealAksiAnswer(){
+  state.md.popup.revealed = true;
+  render();
+}
+
+function mdRollAksiDice(){
+  const pop = state.md.popup;
+  if(!pop || pop.diceRolling || pop.diceValue) return;
+  pop.diceRolling = true;
+  render();
+  setTimeout(()=>{
+    pop.diceValue = 1 + Math.floor(Math.random()*6);
+    pop.diceRolling = false;
+    render();
+  }, 550);
+}
+
+/* Reads the pre-computed numeric effect for the chosen ranking option or the
+   rolled dice face — never parses "Maju/Mundur ... langkah" text — then hands
+   off to the shared movePawn/afterMove pipeline. */
+function mdCloseAksiPopup(){
+  const pop = state.md.popup;
+  const p = state.md.players[state.md.currentPlayerIndex];
+  let effect = 0;
+  if(pop.cat.type === "ranking"){
+    if(pop.revealed && pop.selected){
+      effect = pop.card.effects[pop.selected];
+    }
+  } else {
+    if(pop.diceValue){
+      effect = pop.cat.table[pop.diceValue].effect;
+    }
+  }
+  if(effect !== 0){
+    mdAddHistory(`${p.emoji} ${p.name} ${effect >= 0 ? "+" : ""}${effect} langkah (Kartu Aksi)`);
+  }
+  state.md.popup = null;
+  render();
+  mdApplyCardEffect(effect);
+}
+
+function mdCloseLadderPopup(){
+  const p = state.md.players[state.md.currentPlayerIndex];
+  const l = state.md.popup.data;
+  state.md.popup = null;
+  render();
+  setTimeout(()=>{
+    p.position = l.to;
+    render();
+    mdAfterMove(); // re-check the landing tile in case another card/ladder/snake awaits
+  }, 320);
+}
+
+function mdCloseSnakePopup(){
+  const p = state.md.players[state.md.currentPlayerIndex];
+  const s = state.md.popup.data;
+  state.md.popup = null;
+  render();
+  setTimeout(()=>{
+    p.position = s.to;
+    render();
+    mdAfterMove(); // re-check the landing tile in case another card/ladder/snake awaits
+  }, 320);
+}
+
+function mdNextPlayer(){
+  if(state.md.phase !== "playing") return;
+  const n = state.md.players.length;
+  let next = state.md.currentPlayerIndex;
+  for(let i=0;i<n;i++){
+    next = (next + 1) % n;
+    if(!state.md.players[next].finished) break;
+  }
+  state.md.currentPlayerIndex = next;
+  state.md.lastRoll = null;
+  render();
+}
+
+function mdFinishGame(){
+  const p = state.md.players[state.md.currentPlayerIndex];
+  p.position = 100;
+  p.finished = true;
+  state.md.phase = "finished";
+  state.md.winner = p;
+  state.md.popup = null;
+  render();
+}
+
+function mdPlayAgain(){
+  state.md.phase = "setup";
+  state.md.players = [];
+  state.md.popup = null;
+  state.md.winner = null;
+  state.md.history = [];
+  state.md.lastRoll = null;
   render();
 }
 
@@ -1055,6 +1587,12 @@ function renderHome(){
           <h3>Panduan Bermain</h3>
           <p>Aturan main, arti petak, glosarium istilah keuangan syariah, dan info lengkap lainnya.</p>
           <span class="cc-count">9 bagian panduan</span>
+        </div>
+        <div class="choice-card maindigital" onclick="goMainDigital()">
+          <span class="cc-icon">🎮</span>
+          <h3>Main Digital</h3>
+          <p>Mainkan versi digital board game ini bersama teman, langsung di browser.</p>
+          <span class="cc-count">2–6 pemain</span>
         </div>
       </div>
     </div>
@@ -1543,6 +2081,332 @@ function renderGameDice(){
   `;
 }
 
+function renderMainDigital(){
+  if(state.md.phase === "setup") renderMainDigitalSetup();
+  else if(state.md.phase === "playing") renderMainDigitalPlaying();
+  else renderMainDigitalFinished();
+}
+
+function renderMainDigitalSetup(){
+  const md = state.md;
+  const playerRows = [];
+  for(let i=0;i<md.numPlayers;i++){
+    const swatches = MD_COLOR_PALETTE.map(c=>`
+      <button class="md-color-btn ${md.colors[i]===c.key ? 'selected':''}" title="${c.key}" onclick="mdAssignColor(${i}, '${c.key}')">${c.emoji}</button>
+    `).join("");
+    playerRows.push(`
+      <div class="md-player-row">
+        <span style="font-weight:700; font-size:12.5px; color:var(--green-900); flex:0 0 68px;">Pemain ${i+1}</span>
+        <input class="md-player-input" type="text" placeholder="Nama pemain ${i+1}" value="${md.names[i] || ''}" oninput="mdSetPlayerName(${i}, this.value)">
+        <div class="md-color-swatches">${swatches}</div>
+      </div>
+    `);
+  }
+
+  app.innerHTML = `
+    ${topbarHTML(true, "goHome()", "Main Digital")}
+    <div class="panel">
+      <div class="hero" style="padding-bottom:6px;">
+        <div class="kicker">🎮 Main Digital</div>
+        <h2 style="font-size:24px;">Jejak Finansial Santri</h2>
+        <p>Mainkan versi digital board game ini langsung di browser — kartu yang muncul menggunakan data yang sama persis dengan menu Kartu Literasi &amp; Kartu Aksi.</p>
+      </div>
+
+      <div class="md-setup-row">
+        <div class="md-setup-label">👥 Jumlah Pemain</div>
+        <div class="md-num-players">
+          ${[2,3,4,5,6].map(n=>`<button class="md-num-btn ${md.numPlayers===n?'active':''}" onclick="mdSetNumPlayers(${n})">${n}</button>`).join("")}
+        </div>
+      </div>
+
+      <div class="md-setup-row">
+        <div class="md-setup-label">🧑‍🤝‍🧑 Nama &amp; Warna Pion</div>
+        ${playerRows.join("")}
+      </div>
+
+      <div class="md-setup-row">
+        <div class="md-setup-label">🎲 Mode Dadu</div>
+        <div class="gd-mode-grid">
+          <div class="gd-mode-card ${md.diceMode==='1' ? 'active':''}" onclick="mdSetDiceMode('1')">
+            <span class="gd-mode-icon">🎲</span>
+            <h3>1 Dadu</h3>
+            <p>Permainan lebih panjang &amp; edukatif.</p>
+            <div class="gd-active-tag">✓ Mode Dipilih</div>
+          </div>
+          <div class="gd-mode-card ${md.diceMode==='2' ? 'active':''}" onclick="mdSetDiceMode('2')">
+            <span class="gd-mode-icon">🎲🎲</span>
+            <h3>2 Dadu</h3>
+            <p>Permainan lebih cepat.</p>
+            <div class="gd-active-tag">✓ Mode Dipilih</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row" style="justify-content:center; margin-top:8px;">
+        <button class="btn btn-primary" onclick="mdStartGame()">🎮 Mulai Permainan</button>
+      </div>
+      <div class="md-note">Papan, kartu, dan hasil dadu bersifat acak — setiap sesi permainan akan berbeda.</div>
+    </div>
+  `;
+}
+
+function mdBoardHTML(){
+  let cells = "";
+  for(let displayRow=0; displayRow<10; displayRow++){
+    for(let col=0; col<10; col++){
+      const rowFromBottom = 9 - displayRow;
+      const n = (rowFromBottom % 2 === 0) ? (rowFromBottom*10 + col + 1) : (rowFromBottom*10 + (10 - col));
+      const type = mdCellType(n);
+      const icon = type==="start" ? "🏁" : type==="finish" ? "🏆" : type==="ladder" ? "🪜" : type==="snake" ? "🐍" : type==="green" ? "📖" : "🃏";
+      const pawnsHere = state.md.players.filter(p=>p.position===n);
+      const pawnHTML = pawnsHere.map(p=>`<span class="md-pawn" title="${p.name}">${p.emoji}</span>`).join("");
+      cells += `<div class="md-cell md-cell-${type}"><span class="md-cell-num">${n}</span><span class="md-cell-icon">${icon}</span><div class="md-pawns">${pawnHTML}</div></div>`;
+    }
+  }
+  return `<div class="md-board">${cells}</div>`;
+}
+
+function mdPanelHTML(){
+  const md = state.md;
+  const current = md.players[md.currentPlayerIndex];
+  const busy = md.rolling || md.moving || !!md.popup;
+
+  let diceDisplay = "";
+  if(md.rolling){
+    diceDisplay = md.diceMode==='1'
+      ? `<div class="die rolling">?</div>`
+      : `<div class="die rolling">?</div><span class="gd-plus">+</span><div class="die rolling">?</div>`;
+  } else if(md.lastRoll){
+    const r = md.lastRoll;
+    diceDisplay = md.diceMode==='1'
+      ? `<div class="die">${r.d1}</div>`
+      : `<div class="die">${r.d1}</div><span class="gd-plus">+</span><div class="die">${r.d2}</div>`;
+  } else {
+    diceDisplay = md.diceMode==='1' ? `<div class="die">🎲</div>` : `<div class="die">🎲</div><span class="gd-plus">+</span><div class="die">🎲</div>`;
+  }
+
+  return `
+    <div class="md-panel-card">
+      <div class="md-turn-banner">
+        <span class="md-turn-dot" style="background:${current.hex};"></span>
+        <div>
+          <div class="md-turn-text">${current.emoji} Giliran ${current.name}</div>
+          <div class="md-turn-sub">Kotak ${current.position} · Giliran ke-${current.turns+1}</div>
+        </div>
+      </div>
+      <div class="dice-row" style="justify-content:center; margin-bottom:10px;">${diceDisplay}</div>
+      ${md.lastRoll ? `<div class="gd-status-text" style="text-align:center;">Total langkah: <b>${md.lastRoll.total}</b></div>` : ""}
+      <div class="btn-row" style="justify-content:center;">
+        <button class="btn btn-primary" onclick="mdRollDice()" ${busy ? "disabled":""}>🎲 Roll Dadu</button>
+      </div>
+    </div>
+
+    <div class="md-panel-card">
+      <div class="md-panel-title">👥 Status Pemain</div>
+      <div class="md-player-list">
+        ${md.players.map((p,i)=>`
+          <div class="md-player-item ${i===md.currentPlayerIndex ? 'current':''} ${p.finished?'finished':''}">
+            <span class="md-dot" style="background:${p.hex};"></span>
+            <span class="md-player-name">${p.emoji} ${p.name}</span>
+            <span class="md-player-pos">Kotak ${p.position}</span>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+
+    <div class="md-panel-card">
+      <div class="md-panel-title">📜 Riwayat Permainan</div>
+      <div class="md-history-list">
+        ${md.history.length===0 ? `<div class="gd-history-empty">Belum ada aktivitas.</div>` : md.history.map(h=>`<div class="md-history-row">${h}</div>`).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function mdPopupHTML(){
+  const pop = state.md.popup;
+  if(!pop) return "";
+
+  let inner = "";
+
+  if(pop.type === "literasi"){
+    const card = pop.data;
+    const d = diffLabel(card.difficulty);
+    const letters = ["A","B","C","D"];
+    const optionsHTML = letters.map(letter=>{
+      const isSelected = pop.selected === letter;
+      const isCorrect = letter === card.answer;
+      let cls = "opt-btn";
+      if(pop.revealed){ if(isCorrect) cls += " correct-answer"; else if(isSelected) cls += " wrong-selected"; }
+      else if(isSelected){ cls += " selected"; }
+      return `
+        <button class="${cls}" onclick="mdSelectLiterasiOption('${letter}')" ${pop.revealed?"disabled":""}>
+          <span class="opt-letter">${letter}</span><span>${card.options[letter]}</span>
+        </button>
+      `;
+    }).join("");
+    const answerBox = pop.revealed ? `
+      <div class="answer-box">
+        <div class="ab-title">Pembahasan</div>
+        <div style="font-size:13px; line-height:1.6; color:#EFE6C8;">
+          Jawaban benar: <b style="color:var(--gold-300)">${card.answer}</b> — “${card.options[card.answer]}”.
+          ${pop.selected===card.answer ? `<br><br>🎉 Tepat! Maju ${card.steps} langkah.` : `<br><br>Belum tepat. Mundur ${card.steps} langkah.`}
+        </div>
+      </div>
+    ` : "";
+    inner = `
+      <div class="md-popup-header"><span class="md-popup-emoji">📖</span><h3>Kartu Literasi</h3></div>
+      <div class="card-face">
+        <span class="difficulty-badge ${d.cls}">${d.text} · +${card.steps} Langkah</span>
+        <div class="card-question">${card.question}</div>
+        <div class="options">${optionsHTML}</div>
+      </div>
+      ${answerBox}
+      <div class="btn-row" style="justify-content:center;">
+        <button class="btn btn-gold" onclick="mdRevealLiterasiAnswer()" ${pop.revealed?"disabled":""}>👁 Tampilkan Jawaban</button>
+        <button class="btn btn-primary" onclick="mdCloseLiterasiPopup()" ${!pop.revealed?"disabled":""}>Lanjutkan ➜</button>
+      </div>
+    `;
+  }
+
+  else if(pop.type === "aksi"){
+    const card = pop.card;
+    const letters = ["A","B","C","D"];
+    if(pop.cat.type === "ranking"){
+      const optionsHTML = letters.map(letter=>{
+        const isSelected = pop.selected === letter;
+        const delta = card.effects[letter];
+        const isMaju = delta >= 0;
+        let cls = "opt-btn";
+        if(isSelected) cls += " selected " + (isMaju ? "result-maju":"result-mundur");
+        return `
+          <button class="${cls}" onclick="mdSelectAksiOption('${letter}')" ${pop.revealed?"disabled":""}>
+            <span class="opt-letter">${letter}</span><span>${card.options[letter]}</span>
+            ${isSelected ? `<span class="opt-result">${isMaju?'Maju':'Mundur'} ${Math.abs(delta)}</span>` : ""}
+          </button>
+        `;
+      }).join("");
+      const answerBox = pop.revealed ? `
+        <div class="answer-box">
+          <div class="ab-title">Urutan Keputusan Terbaik</div>
+          ${card.ranking.map((letter,i)=>{
+            const delta = card.effects[letter];
+            const isMaju = delta >= 0;
+            return `
+              <div class="rank-row">
+                <span class="rank-pos">${i+1}</span><span class="rank-letter">${letter}</span>
+                <span class="rank-text">${card.options[letter]}</span>
+                <span class="rank-step ${isMaju?'maju':'mundur'}">${isMaju?'Maju':'Mundur'} ${Math.abs(delta)}</span>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      ` : "";
+      inner = `
+        <div class="md-popup-header"><span class="md-popup-emoji">🃏</span><h3>Kartu Aksi — ${pop.catName}</h3></div>
+        <div class="card-face"><div class="card-question">${card.situasi}</div><div class="options">${optionsHTML}</div></div>
+        ${answerBox}
+        <div class="btn-row" style="justify-content:center;">
+          <button class="btn btn-gold" onclick="mdRevealAksiAnswer()" ${pop.revealed?"disabled":""}>👁 Tampilkan Jawaban</button>
+          <button class="btn btn-primary" onclick="mdCloseAksiPopup()" ${!pop.revealed?"disabled":""}>Lanjutkan ➜</button>
+        </div>
+      `;
+    } else {
+      const outcome = pop.diceValue ? pop.cat.table[pop.diceValue] : null;
+      const isMaju = outcome ? outcome.effect >= 0 : null;
+      inner = `
+        <div class="md-popup-header"><span class="md-popup-emoji">🃏</span><h3>Kartu Aksi — ${pop.catName}</h3></div>
+        <div class="card-face">
+          <div class="situasi-only">${card.situasi}</div>
+          <div class="dice-row" style="margin-top:14px;">
+            <div class="die ${pop.diceRolling?'rolling':''}">${pop.diceRolling ? "?" : (pop.diceValue || "🎲")}</div>
+            <div>
+              ${outcome ? `<div class="dice-result-text">Dadu <b>${pop.diceValue}</b> → <b>${outcome.kejadian}</b></div><span class="dice-outcome-pill" style="background:${isMaju?'var(--maju-bg)':'var(--mundur-bg)'}; color:${isMaju?'var(--maju)':'var(--mundur)'};">${outcome.hasil}</span>` : `<div class="dice-result-text">Tekan tombol untuk melempar dadu.</div>`}
+            </div>
+          </div>
+        </div>
+        <div class="btn-row" style="justify-content:center;">
+          <button class="btn btn-gold" onclick="mdRollAksiDice()" ${pop.diceValue || pop.diceRolling ? "disabled":""}>🎲 Lempar Dadu</button>
+          <button class="btn btn-primary" onclick="mdCloseAksiPopup()" ${!pop.diceValue ? "disabled":""}>Lanjutkan ➜</button>
+        </div>
+      `;
+    }
+  }
+
+  else if(pop.type === "ladder"){
+    const l = pop.data;
+    inner = `
+      <div class="ut-detail tangga" style="border-radius:16px;">
+        <div class="ut-status">🎉 SELAMAT!</div>
+        <div>Kamu Naik Tangga</div>
+        <div class="ut-move">⬆️ ${l.from} → ${l.to}</div>
+        <span class="ut-title-icon">${l.icon}</span>
+        <div class="ut-title">${l.title}</div>
+        <div class="ut-detail-body">${l.description}</div>
+        <div class="ut-detail-box"><div class="ut-box-label">💡 Hikmah</div><p>${l.hikmah}</p></div>
+      </div>
+      <div class="btn-row" style="justify-content:center; margin-top:14px;">
+        <button class="btn btn-primary" onclick="mdCloseLadderPopup()">Lanjutkan ➜</button>
+      </div>
+    `;
+  }
+
+  else if(pop.type === "snake"){
+    const s = pop.data;
+    inner = `
+      <div class="ut-detail ular" style="border-radius:16px;">
+        <div class="ut-status">😥 MOHON MAAF</div>
+        <div>Kamu Turun karena Ular</div>
+        <div class="ut-move">⬇️ ${s.from} → ${s.to}</div>
+        <span class="ut-title-icon">${s.icon}</span>
+        <div class="ut-title">${s.title}</div>
+        <div class="ut-detail-body">${s.description}</div>
+        <div class="ut-detail-box"><div class="ut-box-label">💡 Hikmah</div><p>${s.hikmah}</p></div>
+      </div>
+      <div class="btn-row" style="justify-content:center; margin-top:14px;">
+        <button class="btn btn-primary" onclick="mdCloseSnakePopup()">Lanjutkan ➜</button>
+      </div>
+    `;
+  }
+
+  return `<div class="md-popup-backdrop"><div class="md-popup-card">${inner}</div></div>`;
+}
+
+function renderMainDigitalPlaying(){
+  app.innerHTML = `
+    ${topbarHTML(true, "goHome()", "Main Digital")}
+    <div class="md-layout">
+      <div class="md-board-col">${mdBoardHTML()}</div>
+      <div class="md-panel-col">${mdPanelHTML()}</div>
+    </div>
+    ${mdPopupHTML()}
+  `;
+}
+
+function renderMainDigitalFinished(){
+  const w = state.md.winner;
+  app.innerHTML = `
+    ${topbarHTML(true, "goHome()", "Main Digital")}
+    <div class="ut-detail tangga" style="border-radius:20px;">
+      <div class="ut-status">🏆 SELAMAT!</div>
+      <div class="ut-title" style="font-size:22px;">${w.emoji} ${w.name} Menang!</div>
+      <div class="ut-detail-body" style="text-align:center;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; text-align:center;">
+          <div><b style="font-size:20px;">${w.turns}</b><br><span style="font-size:11px;">Giliran</span></div>
+          <div><b style="font-size:20px;">${w.literasiCount}</b><br><span style="font-size:11px;">Kartu Literasi</span></div>
+          <div><b style="font-size:20px;">${w.aksiCount}</b><br><span style="font-size:11px;">Kartu Aksi</span></div>
+          <div><b style="font-size:20px;">${w.ladderCount}</b><br><span style="font-size:11px;">Naik Tangga</span></div>
+          <div><b style="font-size:20px;">${w.snakeCount}</b><br><span style="font-size:11px;">Kena Ular</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row" style="justify-content:center; margin-top:16px;">
+      <button class="btn btn-primary" onclick="mdPlayAgain()">🔄 Main Lagi</button>
+      <button class="btn btn-ghost" onclick="goHome()">← Kembali ke Beranda</button>
+    </div>
+  `;
+}
+
 function renderLiterasiPlay(){
   const card = LITERASI_DATA[state.cardIndex];
   const d = diffLabel(card.difficulty);
@@ -1744,6 +2608,7 @@ function renderAksiDice(cat, meta, card){
 
 /* ============== MAIN RENDER ============== */
 function render(){
+  app.classList.toggle("wide-mode", state.screen === "main-digital");
   if(state.screen === "home") renderHome();
   else if(state.screen === "literasi-play") renderLiterasiPlay();
   else if(state.screen === "aksi-play") renderAksiPlay();
@@ -1754,6 +2619,7 @@ function render(){
   else if(state.screen === "ut-snake-detail") renderSnakeDetail();
   else if(state.screen === "panduan") renderPanduan();
   else if(state.screen === "dadu-permainan") renderGameDice();
+  else if(state.screen === "main-digital") renderMainDigital();
 }
 
 render();
